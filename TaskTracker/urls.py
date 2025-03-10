@@ -6,4 +6,5 @@ app_name = "TaskTracker"
 
 urlpatterns = [
     path("", views.index, name="index"),
+
 ]
