@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center mb-4">Edit Task</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="title" class="form-label">Task Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ task.title }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description">{{ task.description }}</textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="project" class="form-label">Project</label>
+      <select class="form-control" id="project" name="project" required>
+        {% for project in projects %}
+          <option value="{{ project.id }}" {% if project.id == task.project.id %}selected{% endif %}>{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="assignee" class="form-label">Assignee</label>
+      <select class="form-control" id="assignee" name="assignee">
+        <option value="">None</option>
+        {% for user in users %}
+          <option value="{{ user.id }}" {% if user.id == task.assignee.id %}selected{% endif %}>{{ user.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="deadline" class="form-label">Deadline</label>
+      <input type="date" class="form-control" id="deadline" name="deadline" value="{{ task.deadline }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Task</button>
+  </form>
+
+{% endblock %}
