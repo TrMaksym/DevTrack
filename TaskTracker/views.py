@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 
 from TaskTracker.forms import ProjectForm
@@ -6,12 +7,19 @@ from TaskTracker.models import Project, Task
 
 
 def index(request):
-    return render(request, "TaskTracker/index.html")
+    num_visits = request.session.get("num_visits", 0) + 1
+    request.session["num_visits"] = num_visits
+    return render(request, "TaskTracker/index.html", {"num_visits": num_visits})
 
 
 def task_list(request):
-    tasks = Task.objects.all()
-    return render(request, "TaskTracker/task_list.html", {"tasks": tasks})
+    tasks = Task.objects.all().order_by("-deadline")
+    paginator = Paginator(tasks, 10)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "TaskTracker/task_list.html", {"page_obj": page_obj})
 
 
 def create_task(request):

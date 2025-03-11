@@ -17,12 +17,12 @@
           </tr>
         </thead>
         <tbody>
-          {% for task in tasks %}
+          {% for task in page_obj %}
             <tr>
               <th scope="row">{{ forloop.counter }}</th>
               <td>{{ task.title }}</td>
               <td>{{ task.project.name }}</td>
-              <td>{{ task.assignee.username }} if {{ task.assignee }} else "Not assigned" }}</td>
+              <td>{% if task.assignee %}{{ task.assignee.username }}{% else %}Not assigned{% endif %}</td>
               <td>{{ task.status }}</td>
               <td>
                 <a href="{% url 'TaskTracker:update_task' task.id %}" class="btn btn-warning btn-sm">Edit</a>
@@ -38,6 +38,8 @@
       </table>
     </div>
   </div>
+
+  {% include 'includes/pagination.html' with page_obj=page_obj is_paginated=True %}
 
   <div class="text-center mt-4">
     <a href="{% url 'TaskTracker:create_task' %}" class="btn btn-success">+ New Task</a>

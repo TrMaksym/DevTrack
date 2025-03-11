@@ -22,5 +22,6 @@ urlpatterns = [
         path('admin/', admin.site.urls),
         path("TaskTracker/", include("TaskTracker.urls", namespace="TaskTracker")),
         path("", include("TaskTracker.urls")),
+        path('accounts/', include('django.contrib.auth.urls')),
 
 ]

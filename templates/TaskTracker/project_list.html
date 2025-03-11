@@ -20,6 +20,10 @@
         </div>
       {% endfor %}
     </div>
+    <br>
+    {% block pagination %}
+    	{% include 'includes/pagination.html' with page_obj=page_obj is_paginated=True %}
+    {% endblock %}
   {% else %}
     <p>No projects available.</p>
   {% endif %}

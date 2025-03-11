@@ -5,22 +5,41 @@
         <h4 class="text-center"><i class="bi bi-kanban"></i> DevTrack</h4>
         <hr>
         <ul class="nav flex-column">
+          {% if user.is_authenticated %}
+            <li>
+              User: {{ user.username }}
+            </li>
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link btn btn-link">
+                        <i class="bi bi-door-open"></i> Logout
+                    </button>
+                </form>
+            </li>
+          {% else %}
             <li class="nav-item">
-                <a href="{% url 'TaskTracker:index' %}" class="nav-link active">
+                <a href="{% url 'login' %}" class="nav-link">
+                    <i class="bi bi-house-door"></i> Login
+                </a>
+            </li>
+          {% endif %}
+            <li class="nav-item {% if request.path == '/TaskTracker/' %}active{% endif %}">
+                <a href="{% url 'TaskTracker:index' %}" class="nav-link">
                     <i class="bi bi-house-door"></i> Home
                 </a>
             </li>
-            <li>
+            <li class="nav-item {% if request.path == '/TaskTracker/task_list/' %}active{% endif %}">
                 <a href="{% url 'TaskTracker:task_list' %}" class="nav-link">
                     <i class="bi bi-list-task"></i> Task List
                 </a>
             </li>
-            <li>
+            <li class="nav-item {% if request.path == '/TaskTracker/project_list/' %}active{% endif %}">
                 <a href="{% url 'TaskTracker:project_list' %}" class="nav-link">
                     <i class="bi bi-folder"></i> Projects
                 </a>
             </li>
-            <li>
+            <li class="nav-item {% if request.path == '/TaskTracker/team_list/' %}active{% endif %}">
                 <a href="{% url 'TaskTracker:team_list' %}" class="nav-link">
                     <i class="bi bi-people"></i> Teams
                 </a>
