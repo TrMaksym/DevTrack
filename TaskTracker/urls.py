@@ -5,7 +5,6 @@ from django.urls import path
 
 from DivTrack import settings
 from . import views
-
 app_name = "TaskTracker"
 
 urlpatterns = [
@@ -19,6 +18,10 @@ urlpatterns = [
     path("update_project/<int:project_id>", views.update_project, name="update_project"),
     path("delete_project/<int:project_id>", views.delete_project, name="delete_project"),
     path("team_list/", views.team_list, name="team_list"),
+    path("create_team/", views.create_team, name="create_team"),
+    path("update_team/<int:team_id>/", views.update_team, name="update_team"),
+    path("delete_team/<int:team_id>/", views.delete_team, name="delete_team"),
+    # path("worker/create/", WorkerCreateView.as_view(), name="worker_create"),
 
     path('logout/', LogoutView.as_view(), name="logout"),
     path('login/', LoginView.as_view(), name="login"),

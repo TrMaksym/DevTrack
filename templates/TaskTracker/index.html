@@ -53,6 +53,9 @@
       <li class="list-group-item">No recent activity.</li>
     {% endfor %}
   </ul>
+{#  <ul>#}
+{#  <a href="{% url 'TaskTracker:worker_create' %}" class="btn btn-primary">Create Worker</a>#}
+{#  </ul>#}
 
   <h2 class="mt-4">Create a New Task</h2>
   <a href="{% url 'TaskTracker:create_task' %}" class="btn btn-success" >+ New Task</a>

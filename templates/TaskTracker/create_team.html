@@ -3,15 +3,15 @@
 {% block content %}
   <h1 class="my-4">Teams</h1>
 
-  <form method="get" class="mb-3">
-    {% csrf_token %}
-    <div class="input-group">
-      <input type="text" name="name" class="form-control" placeholder="Search by team name" value="{{ request.GET.name }}">
-      <button class="btn btn-primary" type="submit">Search</button>
-    </div>
-  </form>
+  <div class="mb-4">
+    <form method="get">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
 
-  <div class="text-center mb-3">
+  <div class="text-center">
     <a href="{% url 'TaskTracker:create_team' %}" class="btn btn-success">Create Team</a>
   </div>
 
@@ -45,8 +45,6 @@
             </tbody>
         </table>
     </div>
-
-    {% include 'includes/pagination.html' with page_obj=teams %}
   {% else %}
     <p class="text-center">No teams available.</p>
   {% endif %}

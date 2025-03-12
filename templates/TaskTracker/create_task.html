@@ -5,38 +5,7 @@
 
   <form method="post">
     {% csrf_token %}
-    <div class="mb-3">
-      <label for="title" class="form-label">Task Title</label>
-      <input type="text" class="form-control" id="title" name="title" required>
-    </div>
-
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <textarea class="form-control" id="description" name="description" rows="4"></textarea>
-    </div>
-
-    <div class="mb-3">
-      <label for="project" class="form-label">Project</label>
-      <select class="form-control" id="project" name="project">
-        {% for project in projects %}
-          <option value="{{ project.id }}">{{ project.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="assignee" class="form-label">Assign to</label>
-      <select class="form-control" id="assignee" name="assignee">
-        {% for user in users %}
-          <option value="{{ user.id }}">{{ user.username }}</option>
-        {% endfor %}
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <label for="deadline" class="form-label">Deadline</label>
-      <input type="date" class="form-control" id="deadline" name="deadline">
-    </div>
+    {{ form.as_p }}  <!-- Виводимо форму в стилі P для зручного форматування -->
 
     <button type="submit" class="btn btn-primary">Create Task</button>
   </form>
