@@ -228,9 +228,3 @@ def delete_team(request, team_id):
         return redirect("TaskTracker:team_list")
 
     return render(request, "TaskTracker/delete_team.html", {"team": team})
-
-# class WorkerCreateView(LoginRequiredMixin, CreateView):
-#     model = Worker
-#     form_class = WorkerCreationForm
-#     template_name = "TaskTracker/worker_form.html"
-#     success_url = reverse_lazy("TaskTracker:worker_list")
