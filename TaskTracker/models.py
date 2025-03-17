@@ -25,7 +25,7 @@ class Team(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="members")
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.position.name if self.position else "No Position"})"
