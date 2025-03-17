@@ -1,64 +1,66 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class TaskType(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 class Position(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
 
-class TaskType(models.Model):
-    """Типи завдань (Bug, New feature, Breaking change)"""
-    name = models.CharField(max_length=255, unique=True)
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    team_lead = models.ForeignKey("Worker", on_delete=models.SET_NULL, null=True, blank=True)
 
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
+
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(
-        Position,
-        on_delete=models.SET_NULL,
-        related_name="workers",
-        null=True
-    )
+    position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True)
 
-    class Meta:
-        ordering = ["position"]
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} ({self.position.name if self.position else "No Position"})"
 
-    def __str__(self) -> str:
-        position_name = self.position.name if self.position else "No Position"
-        return f"{self.first_name} {self.last_name} ({position_name})"
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    deadline = models.DateField()
+    is_completed = models.BooleanField(default=False)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="projects")
+
+    def __str__(self):
+        return self.name
+
 
 
 class Task(models.Model):
-    """Основна сутність - завдання"""
     PRIORITY_CHOICES = [
-        ("U", "Urgent"),
-        ("H", "High"),
-        ("M", "Medium"),
-        ("L", "Low"),
-        ("B", "Backlog"),
+        ("URG", "Urgent"),
+        ("HI", "High"),
+        ("MD", "Medium"),
+        ("LO", "Low"),
     ]
 
     name = models.CharField(max_length=255)
     description = models.TextField()
     deadline = models.DateField()
     is_completed = models.BooleanField(default=False)
-    priority = models.CharField(max_length=1, choices=PRIORITY_CHOICES, default="M")
-    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE, related_name="tasks")
+    priority = models.CharField(max_length=3, choices=PRIORITY_CHOICES, default="MD")
+    task_type = models.ForeignKey(TaskType, on_delete=models.SET_NULL, null=True, blank=True)
     assignees = models.ManyToManyField(Worker, related_name="tasks")
-    created_by = models.ForeignKey(Worker, on_delete=models.CASCADE, related_name="created_tasks")
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="tasks")
 
-    class Meta:
-        ordering = ["is_completed", "priority", "deadline"]
-
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
