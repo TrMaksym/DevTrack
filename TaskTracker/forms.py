@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Worker, Team, Project
+from .models import Worker, Team, Project, Task
 
 
 class WorkerCreationForm(UserCreationForm):
@@ -55,4 +55,17 @@ class WorkerSearchForm(forms.Form):
             attrs={
                 'placeholder': 'Search'}
         )
+    )
+
+class TaskSearchForm(forms.Form):
+    search = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search Task"})
+    )
+    priority = forms.ChoiceField(
+        choices=[("", "All")] + Task.PRIORITY_CHOICES,
+        required=False,
+        label="Filter by Priority"
     )
