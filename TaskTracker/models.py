@@ -16,16 +16,18 @@ class Position(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
-    team_lead = models.ForeignKey("Worker", on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
+    team_lead = models.ForeignKey("Worker", on_delete=models.SET_NULL, null=True, blank=True, related_name="team_lead_of")
+    members = models.ManyToManyField("Worker", related_name='teams', blank=True)
 
 
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="members")
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="members_of")
+
+    groups = models.ManyToManyField("auth.Group", related_name="worker_set", blank=True)
+    user_permissions = models.ManyToManyField("auth.Permission", related_name="worker_permissions", blank=True)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.position.name if self.position else "No Position"})"
@@ -58,9 +60,9 @@ class Task(models.Model):
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(max_length=3, choices=PRIORITY_CHOICES, default="MD")
     task_type = models.ForeignKey(TaskType, on_delete=models.SET_NULL, null=True, blank=True)
-    assignees = models.ManyToManyField(Worker, related_name="tasks")
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks")
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="tasks")
+    assignees = models.ManyToManyField('Worker', related_name="tasks")
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name="tasks")
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name="tasks")
 
     def __str__(self):
         return self.name

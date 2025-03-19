@@ -1,0 +1,89 @@
+/* Загальні стилі */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* Стилі для хедера */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #f8f9fa;
+}
+
+/* Стилі для головного контенту */
+.container {
+    margin-top: 30px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.task-list {
+    margin-top: 30px;
+}
+
+.task-list h2 {
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.task-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.task-list li {
+    background-color: #ffffff;
+    border: 1px solid #e3e3e3;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.task-list li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Стилі для футера */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Мобільна адаптація */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .task-list h2 {
+        font-size: 1.5rem;
+    }
+}

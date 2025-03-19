@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ task_type.name }}</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Task Type Details</h5>
+            <p class="card-text">Below are all the tasks categorized under "{{ task_type.name }}"</p>
+
+            {% if tasks %}
+                <ul class="list-group">
+                    {% for task in tasks %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="{% url 'management:task-detail' task.id %}" class="text-decoration-none">
+                                {{ task.name }}
+                            </a>
+                            <span class="badge bg-{{ task.priority|lower }} text-uppercase">
+                                {{ task.get_priority_display }}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">No tasks available for this type.</p>
+            {% endif %}
+        </div>
+        <div class="card-footer text-end">
+            <a href="{% url 'TaskTracker:task-type-list' %}" class="btn btn-secondary">Back to Task Types</a>
+            <a href="{% url 'TaskTracker:task-type-update' task_type.id %}" class="btn btn-warning">Edit Task Type</a>
+            <a href="{% url 'TaskTracker:task-type-delete' task_type.id %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -4,8 +4,9 @@ from django.db.models import Count, Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import ListView
 
-from .forms import ProjectSearchForm, WorkerSearchForm
+from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm
 from .models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -27,7 +28,7 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     template_name = "TaskTracker/task_type_list.html"
     context_object_name = "task_type_list"
-    queryset = TaskType.objects.annotate(task_count=Count("tasks")).order_by("name")
+    queryset = TaskType.objects.annotate(task_count=Count("task")).order_by("name")
     paginate_by = 15
 
 
@@ -218,18 +219,6 @@ class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "TaskTracker/project_confirm_delete.html"
 
 
-class TaskListView(LoginRequiredMixin, generic.ListView):
-    model = Task
-    paginate_by = 15
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(TaskListView, self).get_context_data(**kwargs)
-        return context
-
-    def get_queryset(self):
-        return Task.objects.all()
-
-
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
 
@@ -259,3 +248,26 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("tasktracker:task-list")
     template_name = "TaskTracker/task_confirm_delete.html"
+
+
+class TaskListView(ListView, LoginRequiredMixin):
+    model = Task
+    template_name = "task_list.html"
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        queryset = Task.objects.all()
+        form = TaskSearchForm(self.request.GET)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            priority = form.cleaned_data.get("priority")
+            if name:
+                queryset = queryset.filter(name__icontains=name)
+            if priority:
+                queryset = queryset.filter(priority=priority)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = TaskSearchForm(self.request.GET)
+        return context
