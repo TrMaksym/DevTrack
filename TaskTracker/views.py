@@ -4,7 +4,7 @@ from django.db.models import Count, Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm
 from .models import TaskType, Position, Team, Worker, Project, Task
@@ -271,3 +271,13 @@ class TaskListView(ListView, LoginRequiredMixin):
         context = super().get_context_data(**kwargs)
         context["form"] = TaskSearchForm(self.request.GET)
         return context
+
+
+class AboutUsView(TemplateView):
+    template_name = 'about-us.html'
+
+class PositionCreateView(generic.CreateView):
+    model = Position
+    fields = ['name']
+    template_name = 'TaskTracker/position_form.html'
+    success_url = reverse_lazy('TaskTracker:position-list')

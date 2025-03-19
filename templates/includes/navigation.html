@@ -33,7 +33,7 @@
                     <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
                       Landing Pages
                     </h6>
-                    <a href="{% url 'TaskTracker:task-list' %}" class="dropdown-item border-radius-md">
+                    <a href="{% url 'TaskTracker:task_type_list' %}" class="dropdown-item border-radius-md">
                       <span>Task List</span>
                     </a>
                     <a href="{% url 'TaskTracker:worker-list' %}" class="dropdown-item border-radius-md">
@@ -42,7 +42,7 @@
                     <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
                       Team list
                     </h6>
-                    <a href="{% url 'TaskTracker:sign-in' %}" class="dropdown-item border-radius-md">
+                    <a href="{% url 'TaskTracker:login' %}" class="dropdown-item border-radius-md">
                       <span>Sign In</span>
                     </a>
                   </div>
@@ -50,13 +50,13 @@
                     <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
                       Creation
                     </h6>
-                    <a href="{% url 'TaskTracker:position-create' %}" class="dropdown-item border-radius-md">
+                    <a href="{% url 'TaskTracker:position_create' %}" class="dropdown-item border-radius-md">
                       Create Position
                     </a>
-                    <a href="{% url 'TaskTracker:task-type-create' %}" class="dropdown-item border-radius-md">
+                    <a href="{% url 'TaskTracker:task_type_create' %}" class="dropdown-item border-radius-md">
                       Define Project Type
                     </a>
-                    <a href="{% url 'TaskTracker:project-create' %}" class="dropdown-item border-radius-md">
+                    <a href="{% url 'TaskTracker:project_create' %}" class="dropdown-item border-radius-md">
                       Launch New Project
                     </a>
                     <a href="{% url 'TaskTracker:worker-create' %}" class="dropdown-item border-radius-md">
