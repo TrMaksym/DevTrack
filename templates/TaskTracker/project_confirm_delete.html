@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base-presentation.html' %}
 
 {% block title %} Presentation {% endblock title %}
 
@@ -7,55 +7,83 @@
 
 {% block body_class %} index-page {% endblock body_class %}
 
+{% load crispy_forms_filters %}
+
 {% block content %}
 
-<section class="teams-table py-5">
+<section class="delete-project py-5">
   <div class="container">
-    <h2 class="text-left mb-4 mt-6" style="color: #ce0f9c;">Team List</h2>
-    {% if team_list %}
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Team Lead</th>
-            <th>Number of Members</th>
-          </tr>
-        </thead>
-        <tbody>
-            {% for team in team_list %}
-            <tr onclick="window.location.href='{% url 'TaskTracker:team_detail' team.id %}'" style="cursor: pointer;">
-              <td>{{ team.name }}</td>
-                <td>
-                  {% if team.team_lead %}
-                    {{ team.team_lead }}
-                  {% else %}
-                    No Team lead
-                  {% endif %}
-                </td>
-              <td>{{ team.member_count }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>There are no teams yet</p>
-    {% endif %}
+    <h2 class="text-left mb-4 mt-6" style="color: #ce0f9c;">Delete Project</h2>
+    <div class="row">
+      <div class="col-12">
+        <div class="card delete-project-card">
+          <div class="card-body">
+
+            <h5 class="card-title">Are you sure you want to delete project {{ project.name }}?</h5>
+            <p class="card-text">This action is irreversible and will permanently remove the project from the system.</p>
+
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-danger" style="width: 48%;">Yes, delete</button>
+                <a href="{% url 'TaskTracker:project-list' %}" class="btn btn-secondary" style="width: 48%;">Cancel</a>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-
-
 <style>
-  table {
-  width: 100%;
-  border-collapse: collapse;
+.delete-project-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-
-tbody tr:hover {
-  background-color: #f1f1f1;
+.delete-project-card .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
 }
 
+.delete-project-card .card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.delete-project-card .btn {
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 10px 20px;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #a71d2a;
+  border-color: #a71d2a;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+  border-color: #565e64;
+}
 </style>
 
 {% endblock content %}

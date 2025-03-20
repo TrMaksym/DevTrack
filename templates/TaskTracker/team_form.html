@@ -1,6 +1,7 @@
 {% extends 'layouts/base-fullscreen.html' %}
 
 {% block title %} Create or Update Team {% endblock title %}
+{% load crispy_forms_filters %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
@@ -49,16 +50,6 @@
                   {% else %}
                     {{ form.members|as_crispy_field }}
                     <small class="text-muted">Assign workers to the team.</small>
-                  {% endif %}
-                </div>
-
-                <!-- Projects (only show if projects available) -->
-                <div class="form-group">
-                  {% if form.no_projects_message %}
-                    <p class="text-warning">{{ form.no_projects_message }}</p>
-                  {% else %}
-                    {{ form.projects|as_crispy_field }}
-                    <small class="text-muted">Select projects to assign to this team.</small>
                   {% endif %}
                 </div>
 

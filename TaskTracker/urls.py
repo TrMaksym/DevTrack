@@ -10,7 +10,14 @@ from .views import (
     WorkerListView,
     TeamDeleteView,
     TeamUpdateView,
-    TeamCreateView, PositionCreateView, ProjectCreateView
+    TeamCreateView,
+    PositionCreateView,
+    ProjectCreateView,
+    TaskTypeListView,
+    TaskTypeCreateView,
+    TaskTypeUpdateView,
+    TaskTypeDetailView,
+    TaskTypeDeleteView, TeamDetailView, WorkerDetailView, ProjectUpdateView, ProjectDeleteView, ProjectDetailView
 )
 
 app_name = "TaskTracker"
@@ -18,24 +25,31 @@ app_name = "TaskTracker"
 urlpatterns = [
     path("", views.index, name="index"),
 
-    path("task-type-list/", views.TaskTypeListView.as_view(), name="task_type_list"),
-    path("task-type/create/", views.TaskTypeCreateView.as_view(), name="task_type_create"),
-    path("task-type/<int:pk>/update/", views.TaskTypeUpdateView.as_view(), name="task_type_update"),
-    path("task-type/<int:pk>/", views.TaskTypeDetailView.as_view(), name="task_type_detail"),
+    path("task-type-list/", TaskTypeListView.as_view(), name="task_type_list"),
+    path("task-type/create/", TaskTypeCreateView.as_view(), name="task_type_create"),
+    path("task-type/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="task_type_update"),
+    path("task-type/<int:pk>/detail/", TaskTypeDetailView.as_view(), name="task_type_detail"),
+    path("task-type-delete/<int:pk>/", TaskTypeDeleteView.as_view(), name="task_type_delete"),
 
     path("workers/", WorkerListView.as_view(), name="worker-list"),
     path("worker/create/", WorkerCreateView.as_view(), name="worker-create"),
     path("worker/<int:pk>/update/", WorkerUpdateView.as_view(), name="worker-update"),
     path("worker/<int:pk>/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
+    path("worker/<int:pk>/detail/", WorkerDetailView.as_view(), name="worker-detail"),
 
     path("teams/", TeamListView.as_view(), name="team-list"),
     path("team/create/", TeamCreateView.as_view(), name="team-create"),
     path("team/<int:pk>/update/", TeamUpdateView.as_view(), name="team-update"),
     path("team/<int:pk>/delete/", TeamDeleteView.as_view(), name="team-delete"),
+    path("team/<int:pk>/detail", TeamDetailView.as_view(), name="team_detail"),
 
     path("position/", PositionCreateView.as_view(), name="position_create"),
 
     path("project-create/", ProjectCreateView.as_view(), name="project_create"),
+    path("project/<int:pk>/update/", ProjectUpdateView.as_view(), name="project_update"),
+    path("project/<int:pk>/delete/", ProjectDeleteView.as_view(), name="project_delete"),
+    path("project/<int:pk>/detail/", ProjectDetailView.as_view(), name="project_detail"),
+
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name='logout'),
 

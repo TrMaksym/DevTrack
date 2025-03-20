@@ -44,7 +44,7 @@ class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "TaskTracker/task_type_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:task-type-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task_type_detail", kwargs={"pk": self.object.pk})
 
 
 class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -53,13 +53,13 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "TaskTracker/task_type_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:task-type-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task_type_detail", kwargs={"pk": self.object.pk})
 
 
 class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     context_object_name = "task_type"
-    success_url = reverse_lazy("tasktracker:task-type-list")
+    success_url = reverse_lazy("TaskTracker:task-type-list")
     template_name = "TaskTracker/task_type_confirm_delete.html"
 
 
@@ -72,6 +72,7 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team
+    template_name = "TaskTracker/team_detail.html"
 
     def get_queryset(self):
         return super().get_queryset().prefetch_related("members", "projects")
@@ -83,7 +84,7 @@ class TeamCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "TaskTracker/team_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:team-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:team_detail", kwargs={"pk": self.object.pk})
 
 
 class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -92,12 +93,12 @@ class TeamUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "TaskTracker/team_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:team-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:team_detail", kwargs={"pk": self.object.pk})
 
 
 class TeamDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Team
-    success_url = reverse_lazy("tasktracker:team-list")
+    success_url = reverse_lazy("TaskTracker:team-list")
     template_name = "TaskTracker/team_confirm_delete.html"
 
 
@@ -142,7 +143,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
-    template_name = "TaskTracker:worker_detail"
+    template_name = "TaskTracker/worker_detail.html"
 
     def get_queryset(self):
         return super().get_queryset().select_related("team", "position")
@@ -160,7 +161,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:worker-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:worker_detail", kwargs={"pk": self.object.pk})
 
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -177,12 +178,12 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:worker-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:worker-detail", kwargs={"pk": self.object.pk})
 
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
-    success_url = reverse_lazy("tasktracker:worker-list")
+    success_url = reverse_lazy("TaskTracker:worker-list")
     template_name = "TaskTracker/worker_confirm_delete.html"
 
 
@@ -206,6 +207,7 @@ class ProjectListView(LoginRequiredMixin, generic.ListView):
 
 class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
     model = Project
+    template_name = "TaskTracker/project_detail.html"
 
     def get_queryset(self):
         return super().get_queryset().select_related("team")
@@ -226,12 +228,12 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "TaskTracker/project_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:project-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:project-detail", kwargs={"pk": self.object.pk})
 
 
 class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Project
-    success_url = reverse_lazy("tasktracker:project-list")
+    success_url = reverse_lazy("TaskTracker:project-list")
     template_name = "TaskTracker/project_confirm_delete.html"
 
 
@@ -248,7 +250,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "TaskTracker/task_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:task-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task-detail", kwargs={"pk": self.object.pk})
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -257,12 +259,12 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "TaskTracker/task_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("tasktracker:task-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task-detail", kwargs={"pk": self.object.pk})
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    success_url = reverse_lazy("tasktracker:task-list")
+    success_url = reverse_lazy("TaskTracker:task-list")
     template_name = "TaskTracker/task_confirm_delete.html"
 
 

@@ -9,7 +9,7 @@
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Yes, delete it</button>
-            <a href="{% url 'tasktracker:task-type-detail' pk=object.pk %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'TaskTracker:task_type_detail' pk=object.pk %}" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 {% endblock %}

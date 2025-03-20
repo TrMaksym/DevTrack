@@ -29,9 +29,9 @@
             {% endif %}
         </div>
         <div class="card-footer text-end">
-            <a href="{% url 'TaskTracker:task-type-list' %}" class="btn btn-secondary">Back to Task Types</a>
-            <a href="{% url 'TaskTracker:task-type-update' task_type.id %}" class="btn btn-warning">Edit Task Type</a>
-            <a href="{% url 'TaskTracker:task-type-delete' task_type.id %}" class="btn btn-danger">Delete</a>
+            <a href="{% url 'TaskTracker:task_type_list' %}" class="btn btn-secondary">Back to Task Types</a>
+            <a href="{% url 'TaskTracker:task_type_update' task_type.id %}" class="btn btn-warning">Edit Task Type</a>
+            <a href="{% url 'TaskTracker:task_type_delete' task_type.id %}" class="btn btn-danger">Delete</a>
         </div>
     </div>
 </div>
