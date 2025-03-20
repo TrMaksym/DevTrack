@@ -10,7 +10,7 @@ from .views import (
     WorkerListView,
     TeamDeleteView,
     TeamUpdateView,
-    TeamCreateView, PositionCreateView
+    TeamCreateView, PositionCreateView, ProjectCreateView
 )
 
 app_name = "TaskTracker"
@@ -34,8 +34,10 @@ urlpatterns = [
     path("team/<int:pk>/delete/", TeamDeleteView.as_view(), name="team-delete"),
 
     path("position/", PositionCreateView.as_view(), name="position_create"),
+
+    path("project-create/", ProjectCreateView.as_view(), name="project_create"),
     path("login/", LoginView.as_view(), name="login"),
-    path("logout/", LogoutView.as_view(), name="logout"),
+    path("logout/", LogoutView.as_view(), name='logout'),
 
     path("about-us/", AboutUsView.as_view(), name="about_us"),
 

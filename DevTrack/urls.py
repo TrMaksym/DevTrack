@@ -23,7 +23,7 @@ from TaskTracker import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.index, name="index"),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("", include("TaskTracker.urls")),
+    path("TaskTracker/", include("TaskTracker.urls", namespace="TaskTracker")),
+    path("", views.index, name="index"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

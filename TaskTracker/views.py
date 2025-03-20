@@ -67,6 +67,7 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
     model = Team
     queryset = Team.objects.select_related("team_lead").annotate(member_count=Count("members")).order_by("name")
     paginate_by = 10
+    template_name = "TaskTracker/team_list.html"
 
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
@@ -141,6 +142,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
+    template_name = "TaskTracker:worker_detail"
 
     def get_queryset(self):
         return super().get_queryset().select_related("team", "position")
@@ -151,6 +153,12 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ("username", "first_name", "last_name", "email", "position", "team")
     template_name = "TaskTracker/worker_form.html"
 
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.set_password(self.request.POST['password'])
+        user.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy("tasktracker:worker-detail", kwargs={"pk": self.object.pk})
 
@@ -159,6 +167,14 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
     fields = ("username", "first_name", "last_name", "email", "position", "team")
     template_name = "TaskTracker/worker_form.html"
+
+    def form_valid(self, form):
+        # Додаємо перевірку на зміну пароля
+        if 'password' in self.request.POST:
+            user = form.save(commit=False)
+            user.set_password(self.request.POST['password'])
+            user.save()
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("tasktracker:worker-detail", kwargs={"pk": self.object.pk})

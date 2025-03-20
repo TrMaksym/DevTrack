@@ -1,0 +1,27 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Workers List {% endblock %}
+
+{% block content %}
+  <h1>Workers</h1>
+
+  <!-- Пошукова форма -->
+  <form method="get" class="mb-4">
+    <input type="text" name="search" value="{{ search }}" placeholder="Search workers" class="form-control">
+    <button type="submit" class="btn btn-primary mt-2">Search</button>
+  </form>
+
+  <!-- Список працівників -->
+  <ul>
+    {% for worker in worker_list %}
+      <li>
+        <a href="{% url 'tasktracker:worker-detail' worker.pk %}">{{ worker.first_name }} {{ worker.last_name }} - {{ worker.position.name }}</a>
+      </li>
+    {% empty %}
+      <li>No workers found.</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Пагінація -->
+  {% include 'includes/pagination.html' %}
+{% endblock %}

@@ -69,3 +69,8 @@ class TaskSearchForm(forms.Form):
         required=False,
         label="Filter by Priority"
     )
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description']
