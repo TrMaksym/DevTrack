@@ -20,10 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from TaskTracker import views
+from TaskTracker.views import AboutUsView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("TaskTracker/", include("TaskTracker.urls", namespace="TaskTracker")),
     path("", views.index, name="index"),
+    path('about-us/', AboutUsView.as_view(), name='about_us'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

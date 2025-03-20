@@ -1,9 +1,9 @@
-{% extends 'layouts/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %} About Us {% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="custom-container" style="margin-top: 150px;">
     <h1 class="text-center my-5">About Us</h1>
     <p class="lead text-center">We are a team of passionate developers, designers, and project managers who work together to create exceptional software solutions. Our mission is to deliver high-quality products that help businesses grow and succeed.</p>
 
@@ -26,3 +26,40 @@
     <p class="mt-5 text-center">We believe in creating products that make a positive impact and drive success for our clients. Thank you for visiting our About Us page!</p>
   </div>
 {% endblock %}
+
+<style>
+.custom-container {
+  width: 100%;
+  padding: 20px;
+  margin-top: 150px;
+}
+
+h1, h3 {
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 8px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+p.lead {
+  margin-top: 50px;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .custom-container {
+    padding: 10px;
+  }
+}
+</style>
+

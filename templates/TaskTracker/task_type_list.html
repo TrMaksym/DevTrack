@@ -6,11 +6,15 @@
 
 {% block content %}
   <div class="container mt-5">
+  <br>
+  <br>
+  <br>
     <h1 class="text-center mb-4">Task Types</h1>
 
-    <div class="list-group">
+    <!-- Додаємо відступи -->
+    <div class="list-group mt-4">
       {% for task_type in task_type_list %}
-        <a href="{% url 'TaskTracker:task_type_detail' pk=task_type.pk%}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <a href="{% url 'TaskTracker:task_type_detail' pk=task_type.pk %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
           <span>{{ task_type.name }}</span>
           <span class="badge bg-primary rounded-pill">{{ task_type.task_count }} task{{ task_type.task_count|pluralize }}</span>
         </a>

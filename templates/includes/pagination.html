@@ -1,18 +1,60 @@
+{% if is_paginated %}
+<div class="row text-center py-2">
+  <div class="col-4 mx-auto">
+    <ul class="pagination pagination-custom m-4">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Previous">
+          <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+      </li>
+      {% endif %}
 
-<div class="pagination">
-  <span class="step-links">
-    {% if page_obj.has_previous %}
-      <a href="?page=1">&laquo; First</a>
-      <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}">{{ num }}</a>
+      </li>
+      {% endfor %}
 
-    <span class="current">
-      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-    </span>
-
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">Next</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
-    {% endif %}
-  </span>
+      {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Next">
+          <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
 </div>
+
+<style>
+  .pagination-custom .page-item.active .page-link {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+  }
+
+  .pagination-custom .page-item .page-link {
+    color: #007bff; /* синій */
+  }
+
+  .pagination-custom .page-item.disabled .page-link {
+    color: #6c757d; /* сірий */
+  }
+
+  .pagination-custom .page-item:hover .page-link {
+    background-color: #ffc107;
+    color: white;
+    border-color: #ffc107;
+  }
+</style>
+
+{% endif %}
