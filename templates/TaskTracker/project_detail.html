@@ -1,4 +1,4 @@
-{% extends 'layouts/base-presentation.html' %}
+{% extends 'base.html' %}
 
 {% block title %} Presentation {% endblock title %}
 
@@ -21,7 +21,7 @@
             <div class="card-meta">
               <p><strong>Priority:</strong> {{ project.get_priority_display }}</p>
               <p><strong>Deadline:</strong> {{ project.deadline }}</p>
-              <p><strong>Project Type: <a href="{% url 'TaskTracker:task_type_detail' task.task_type.id %}">{{ task.task_type.name }}</a></strong></p>
+              <p><strong>Project: <a href="{% url 'TaskTracker:project_detail' pk=project.pk %}">{{ project.name }}</a></strong></p>
               <p><strong>Team:</strong>
                 {% if project.team %}
                   <strong><a href="{% url 'TaskTracker:team_detail' project.team.id %}">{{ project.team.name }}</a></strong>
@@ -34,8 +34,8 @@
                   {{ project.is_completed|yesno:"Completed,Pending" }}
                 </p>
                 <div class="button-wrapper">
-                  <a href="{% url 'TaskTracker:project-update' project.id %}" class="btn btn-primary">Update</a>
-                  <a href="{% url 'TaskTracker:project-delete' project.id %}" class="btn btn-danger ml-3">Delete</a>
+                  <a href="{% url 'TaskTracker:project_update' project.id %}" class="btn btn-primary">Update</a>
+                  <a href="{% url 'TaskTracker:project_delete' project.id %}" class="btn btn-danger ml-3">Delete</a>
                 </div>
               </div>
             </div>

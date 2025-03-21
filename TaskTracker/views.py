@@ -190,6 +190,7 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 class ProjectListView(LoginRequiredMixin, generic.ListView):
     model = Project
     paginate_by = 15
+    template_name = "TaskTracker/project_list.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProjectListView, self).get_context_data(**kwargs)
@@ -227,8 +228,9 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
     fields = "__all__"
     template_name = "TaskTracker/project_form.html"
 
+
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:project-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:project_detail", kwargs={"pk": self.object.pk})
 
 
 class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
