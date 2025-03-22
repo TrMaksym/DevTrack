@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}
+        Update Task: {{ object.name }}
+    {% else %}
+        Create Task
+    {% endif %}
+{% endblock title %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h2 class="mb-4 mt-6">
+        {% if object %}
+            Update Task: {{ object.name }}
+        {% else %}
+            Create New Task
+        {% endif %}
+    </h2>
+
+    <div class="card">
+      <div class="card-body">
+
+        {% if object %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Update Task</button>
+                    <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Create Task</button>
+                    <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+<style>
+.task-form-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.task-form-card .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.task-form-card .card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.task-form-card .btn {
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 10px 20px;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  border-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #a71d2a;
+  border-color: #a71d2a;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+  border-color: #565e64;
+}
+</style>

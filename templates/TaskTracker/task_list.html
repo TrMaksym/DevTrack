@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<section class="task-list py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Your Tasks</h2>
+    <p class="text-center">Here is the list of all your tasks. Click on a task to edit or view details.</p>
+
+    <div class="list-group">
+      {% for task in tasks %}
+      <a href="{% url 'TaskTracker:task-detail' task.pk %}" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">{{ task.title }}</h5>
+        <p class="mb-1">{{ task.description }}</p>
+        <small>Due: {{ task.due_date }}</small>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.task-list {
+  background-color: #fafafa;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #4CAF50;
+  margin-bottom: 20px;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.list-group-item {
+  font-size: 1.2rem;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+.list-group-item.active {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+</style>
+{% endblock content %}

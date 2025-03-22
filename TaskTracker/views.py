@@ -170,7 +170,6 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "TaskTracker/worker_form.html"
 
     def form_valid(self, form):
-        # Додаємо перевірку на зміну пароля
         if 'password' in self.request.POST:
             user = form.save(commit=False)
             user.set_password(self.request.POST['password'])
@@ -241,6 +240,7 @@ class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
+    template_name = "TaskTracker/task_detail.html"
 
     def get_queryset(self):
         return super().get_queryset().select_related("project", "team", "task_type")
@@ -266,13 +266,14 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    success_url = reverse_lazy("TaskTracker:task-list")
+    success_url = reverse_lazy("TaskTracker:task_list")
     template_name = "TaskTracker/task_confirm_delete.html"
+
 
 
 class TaskListView(ListView, LoginRequiredMixin):
     model = Task
-    template_name = "task_list.html"
+    template_name = "TaskTracker/task_list.html"
     context_object_name = "tasks"
 
     def get_queryset(self):

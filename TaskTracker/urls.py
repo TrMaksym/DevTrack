@@ -18,7 +18,7 @@ from .views import (
     TaskTypeUpdateView,
     TaskTypeDetailView,
     TaskTypeDeleteView, TeamDetailView, WorkerDetailView, ProjectUpdateView, ProjectDeleteView, ProjectDetailView,
-    ProjectListView
+    ProjectListView, TaskListView, TaskDetailView, TaskDeleteView, TaskUpdateView, TaskCreateView
 )
 
 app_name = "TaskTracker"
@@ -31,6 +31,12 @@ urlpatterns = [
     path("task-type/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="task_type_update"),
     path("task-type/<int:pk>/detail/", TaskTypeDetailView.as_view(), name="task_type_detail"),
     path("task-type-delete/<int:pk>/", TaskTypeDeleteView.as_view(), name="task_type_delete"),
+
+    path("task-list/", TaskListView.as_view(), name="task_list"),
+    path("task/create/", TaskCreateView.as_view(), name="task_create"),
+    path("task/<int:pk>/detail", TaskDetailView.as_view(), name="task_detail"),
+    path("task/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
+    path("task/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
 
     path("workers/", WorkerListView.as_view(), name="worker-list"),
     path("worker/create/", WorkerCreateView.as_view(), name="worker-create"),
@@ -54,5 +60,6 @@ urlpatterns = [
 
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name='logout'),
+    path("about/", AboutUsView.as_view(), name='about-us'),
 
 ]

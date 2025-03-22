@@ -1,0 +1,99 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Task Detail {% endblock title %}
+
+{% block content %}
+<section class="task-detail py-5">
+  <div class="container">
+    <h2 class="text-left mb-4" style="color: #ce0f9c;">Task Details</h2>
+    <div class="row">
+      <div class="col-12">
+        <div class="card task-detail-card">
+          <div class="card-body">
+            <h5 class="card-title">Task: <strong>{{ object.title }}</strong></h5>
+            <p class="card-text">
+              <strong>Description:</strong> {{ object.description }}
+            </p>
+            <p class="card-text">
+              <strong>Assigned to:</strong> {{ object.assigned_to.first_name }} {{ object.assigned_to.last_name }}
+            </p>
+            <p class="card-text">
+              <strong>Due Date:</strong> {{ object.due_date }}
+            </p>
+            <p class="card-text">
+              <strong>Status:</strong> {{ object.status }}
+            </p>
+
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'TaskTracker:task-update' object.pk %}" class="btn btn-warning">Edit Task</a>
+              <a href="{% url 'TaskTracker:task-delete' object.pk %}" class="btn btn-danger">Delete Task</a>
+            </div>
+
+            <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-secondary mt-3">Back to Task List</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.task-detail-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.task-detail-card .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.task-detail-card .card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.task-detail-card .btn {
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 10px 20px;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  border-color: #e0a800;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #a71d2a;
+  border-color: #a71d2a;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+  border-color: #565e64;
+}
+</style>
+
+{% endblock content %}
