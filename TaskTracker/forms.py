@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Worker, Team, Project, Task
+from .models import Worker, Team, Project, Task, Position
 
 
 class WorkerCreationForm(UserCreationForm):
@@ -74,3 +74,10 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description']
+
+
+
+class PositionForm(forms.ModelForm):
+    class Meta:
+        model = Position
+        fields = ['name']

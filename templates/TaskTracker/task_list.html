@@ -3,17 +3,21 @@
 {% block title %}Task List{% endblock %}
 
 {% block content %}
-<section class="task-list py-5">
-  <div class="container">
-    <h2 class="text-center mb-4">Your Tasks</h2>
+<section class="task-list">
+  <div class="container mt-7">
+    <h2 class="text-center">Your Tasks</h2>
     <p class="text-center">Here is the list of all your tasks. Click on a task to edit or view details.</p>
 
     <div class="list-group">
       {% for task in tasks %}
       <a href="{% url 'TaskTracker:task-detail' task.pk %}" class="list-group-item list-group-item-action">
-        <h5 class="mb-1">{{ task.title }}</h5>
-        <p class="mb-1">{{ task.description }}</p>
-        <small>Due: {{ task.due_date }}</small>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.title }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <small>Due: {{ task.due_date }}</small>
+          </div>
+        </div>
       </a>
       {% endfor %}
     </div>
@@ -21,18 +25,78 @@
 </section>
 
 <style>
-.task-list {
-  background-color: #fafafa;
+/* Градієнтний фон */
+body {
+  background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
+/* Анімація для градієнта */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Стилі для контейнера */
+.container {
+  padding: 40px;
+}
+
+/* Стилі для заголовка */
+h2 {
+  color: #ce0f9c;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+/* Список завдань */
+.list-group-item {
+  font-size: 1.2rem;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Стилі при наведенні */
+.list-group-item:hover {
+  background-color: #f1f1f1;
+  transform: translateY(-5px);
+}
+
+/* Активне завдання */
+.list-group-item.active {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+/* Стилі для картки завдання */
 .card {
   border: none;
   border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
 }
 
+/* Ефект при наведенні на картку */
+.card:hover {
+  transform: translateY(-3px);
+}
+
+/* Заголовок картки */
 .card-title {
   font-size: 1.6rem;
   font-weight: 600;
@@ -40,26 +104,18 @@
   margin-bottom: 20px;
 }
 
+/* Опис картки */
 .card-text {
   font-size: 1.1rem;
   color: #555;
   margin-bottom: 30px;
 }
 
-.list-group-item {
-  font-size: 1.2rem;
-  color: #333;
-  padding: 12px 20px;
-  border-radius: 8px;
+
+small {
+  font-size: 1rem;
+  color: #a69b9b;
 }
 
-.list-group-item:hover {
-  background-color: #f1f1f1;
-}
-
-.list-group-item.active {
-  background-color: #4CAF50;
-  color: #ffffff;
-}
 </style>
 {% endblock content %}

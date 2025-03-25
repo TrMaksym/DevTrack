@@ -35,7 +35,7 @@
               {% endif %}
             </p>
 
-            <p class="card-text"><strong>Position: <a href="{% url 'TaskTracker:position-detail' worker.position.id %}">{{ worker.position.name }}</a></strong></p>
+            <p class="card-text"><strong>Position: <a href="{% url 'TaskTracker:position_delete' worker.position.id %}">{{ worker.position.name }}</a></strong></p>
 
             <p class="card-text"><strong>Team: </strong>
               {% if worker.team %}

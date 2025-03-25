@@ -27,24 +27,23 @@
 
 </head>
 
-<body class="{% block body_class %}{% endblock %} bg-gray-200">
+<body class="{% block body_class %}{% endblock %} bg-gray-200 d-flex flex-column min-vh-100">
 
   {% include 'includes/navigation.html' %}
 
-
-  <div class="container mt-5">
-    {% block content %}{% endblock content %}
-  </div>
-
-  <div style="margin-left: 400px">{% include "includes/pagination.html" %}</div>
+  <main class="flex-fill">
+    <div class="container mt-5">
+      {% block content %}{% endblock content %}
+    </div>
+    <div style="margin-left: 400px">{% include "includes/pagination.html" %}</div>
+  </main>
 
   {% include 'includes/footer.html' %}
-
 
   {% include 'includes/scripts.html' %}
 
   <!-- Specific Page JS goes HERE -->
   {% block javascripts %}{% endblock javascripts %}
-
 </body>
+
 </html>

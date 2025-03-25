@@ -1,12 +1,20 @@
-{% extends 'layouts/base-fullscreen.html' %}
+{% extends 'base.html' %}
 
 {% block title %} Task Detail {% endblock title %}
 
 {% block content %}
-<section class="task-detail py-5">
-  <div class="container">
-    <h2 class="text-left mb-4" style="color: #ce0f9c;">Task Details</h2>
-    <div class="row">
+<br>
+<br>
+<br>
+<section class="task-detail py-5" style="
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+">
+  <div class="container text-center">
+    <h2 class="mb-4" style="color: #ce0f9c;">Task Details</h2>
+    <div class="row justify-content-center">
       <div class="col-12">
         <div class="card task-detail-card">
           <div class="card-body">
@@ -36,6 +44,7 @@
     </div>
   </div>
 </section>
+{% endblock %}
 
 <style>
 .task-detail-card {
@@ -94,6 +103,8 @@
   background-color: #565e64;
   border-color: #565e64;
 }
+
+
 </style>
 
 {% endblock content %}

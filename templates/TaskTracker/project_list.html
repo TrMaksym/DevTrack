@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %} Presentation {% endblock title %}
+{% block title %} Project List {% endblock title %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block body_class %} index-page {% endblock body_class %}
@@ -10,41 +9,37 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-
 <section class="projects-table py-6">
-  <div class="container">
+  <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="text-left mt-5" style="color: #ce0f9c;">Project List</h2>
+      <h2 class="mt-5 text-left" style="color: #ce0f9c;">Project List</h2>
     </div>
 
     <div class="d-flex justify-content-start mb-4">
-      <form method="GET" action="" class="d-flex search-form">
+      <form method="GET" action="" class="d-flex search-form w-100">
         {% csrf_token %}
         <div class="input-group w-100">
-          {{ search_form|crispy }}
-          <button
-            type="submit"
-            class="btn d-flex align-items-center justify-content-center"
-            style="border: none; background: white; padding: 0 1rem; border-left: 1px solid #ced4da; border-radius: 0.5rem; margin-left: 2px;"
-          >
-            <i class="fa fa-search" style="color: #ce0f9c; font-size: 1.2rem;"></i>
+          <input type="text" name="search" class="form-control flex-grow-1" placeholder="Search by name">
+          <button type="submit" class="btn search-btn" aria-label="Search">
+            <i class="fa fa-search"></i>
           </button>
         </div>
       </form>
     </div>
 
     {% if project_list %}
-      <table class="table table-striped">
-        <thead>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
           <tr>
             <th>Project Name</th>
             <th>Priority</th>
             <th>Status</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {% for project in project_list %}
-            <tr onclick="window.location.href='{% url 'TaskTracker:project_detail' project.id %}'" style="cursor: pointer;">
+            <tr onclick="window.location.href='{% url 'TaskTracker:project_detail' project.id %}'">
               <td>{{ project.name }}</td>
               <td>{{ project.get_priority_display }}</td>
               <td class="{{ project.is_completed|yesno:'text-success,text-danger' }}">
@@ -52,8 +47,9 @@
               </td>
             </tr>
           {% endfor %}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     {% else %}
       <p>There are no projects yet</p>
     {% endif %}
@@ -61,86 +57,130 @@
 </section>
 
 <style>
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
+/* Основні стилі для body */
+body {
+  background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
 
-  th, td {
-    padding: 12px 15px;
-    text-align: left;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
-  th {
-    background-color: #f8f9fa;
-    font-weight: bold;
-  }
+/* Стилі для кнопки пошуку */
+.search-btn {
+  border: none;
+  background: #ce0f9c;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
 
-  tr {
-    transition: background-color 0.3s;
-  }
+.search-btn:hover {
+  background-color: #b50d7e;
+  transform: translateY(-2px);
+}
 
-  tr:hover {
-    background-color: #f1f1f1;
-  }
+.search-btn:active {
+  transform: translateY(0);
+}
 
-  tr[onclick] {
-    cursor: pointer;
-  }
+/* Стилі для таблиці */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .text-success {
-    color: #28a745;
-  }
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border: none;
+}
 
-  .text-danger {
-    color: #e74c3c;
-  }
+th {
+  background-color: transparent !important;
+  font-weight: bold;
+  cursor: default;
+  transition: none;
+}
 
-  .d-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+th:hover {
+  background-color: transparent; /* Вимикаємо підсвітку заголовка */
+}
+
+/* Підсвітка рядків при наведенні */
+tr {
+  transition: background-color 0.3s;
+}
+
+tr:hover {
+  background-color: #dacccc; /* Легке підсвічування рядка */
+}
+
+/* Рядки таблиці, на які можна натискати */
+tr[onclick] {
+  cursor: pointer;
+}
+
+/* Лінія під заголовками */
+table th, table td {
+  border-bottom: 2px solid #ce0f9c; /* Лінія під заголовками таблиці */
+}
+
+/* Стиль для форм пошуку */
+.search-form .form-control {
+  background-color: #f8f9fa;
+  border: 1px solid #ce0f9c;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.search-form .form-control:focus {
+  background-color: white;
+  border-color: #ce0f9c;
+  box-shadow: 0 0 5px rgba(206, 15, 156, 0.5);
+}
 </style>
+
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE -->
 {% block javascripts %}
-
   <script src="{{ ASSETS_ROOT }}/js/plugins/countup.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/choices.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/rellax.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/tilt.min.js"></script>
-  <script src="{{ ASSETS_ROOT }}/js/plugins/choices.min.js"></script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-  <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
-  <script type="text/javascript">
-    if (document.getElementById('state1')) {
-      const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
-      }
-    }
-    if (document.getElementById('state2')) {
-      const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
-      if (!countUp1.error) {
-        countUp1.start();
-      } else {
-        console.error(countUp1.error);
-      }
-    }
-    if (document.getElementById('state3')) {
-      const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
-      if (!countUp2.error) {
-        countUp2.start();
-      } else {
-        console.error(countUp2.error);
-      };
-    }
-  </script>
+  <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1"></script>
 
+  <script type="text/javascript">
+    ['state1', 'state2', 'state3'].forEach(function (id) {
+        if (document.getElementById(id)) {
+            const countUp = new CountUp(id, document.getElementById(id).getAttribute("countTo"));
+            if (!countUp.error) countUp.start();
+            else console.error(countUp.error);
+        }
+    });
+  </script>
 {% endblock javascripts %}

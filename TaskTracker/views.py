@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView, TemplateView
 
-from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm
+from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm, PositionForm
 from .models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -219,7 +219,7 @@ class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "TaskTracker/project_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:project-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:project_detail", kwargs={"pk": self.object.pk})
 
 
 class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -234,7 +234,7 @@ class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class ProjectDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Project
-    success_url = reverse_lazy("TaskTracker:project-list")
+    success_url = reverse_lazy("TaskTracker:project_list")
     template_name = "TaskTracker/project_confirm_delete.html"
 
 
@@ -302,3 +302,29 @@ class PositionCreateView(generic.CreateView):
     fields = ['name']
     template_name = 'TaskTracker/position_form.html'
     success_url = reverse_lazy('TaskTracker:position-list')
+
+class PositionListView(generic.ListView):
+    model = Position
+    template_name = "TaskTracker/position_list.html"
+    context_object_name = "positions"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset
+
+
+class PositionUpdateView(generic.UpdateView):
+    model = Position
+    form_class = PositionForm
+    template_name = "TaskTracker/position_update.html"
+    context_object_name = "position"
+
+    def get_success_url(self):
+        return reverse_lazy("TaskTracker:position_detail", kwargs={'pk': self.object.pk})
+
+
+class PositionDeleteView(generic.DeleteView):
+    model = Position
+    template_name = "TaskTracker/position_delete.html"
+    context_object_name = "position"
+    success_url = reverse_lazy("TaskTracker:position_list")
