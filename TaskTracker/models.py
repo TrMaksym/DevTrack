@@ -41,6 +41,9 @@ class Project(models.Model):
     is_completed = models.BooleanField(default=False)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="projects")
 
+    priority = models.CharField(max_length=20, choices=[("Low", "Low"), ("Medium", "Medium"), ("High", "High")], default="Medium")
+    status = models.CharField(max_length=20, choices=[("Pending", "Pending"), ("In Progress", "In Progress"),("Completed", "Completed")], default="Pending")
+
     def __str__(self):
         return self.name
 
