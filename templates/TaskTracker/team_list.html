@@ -11,27 +11,27 @@
 
 <section class="teams-table py-5">
   <div class="container">
-    <h2 class="text-left mb-4 mt-6" style="color: #ce0f9c;">Team List</h2>
+    <h2 class="text-left mb-4 mt-6" style="color: #ffffff;">Team List</h2>
     {% if team_list %}
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Team Lead</th>
-            <th>Number of Members</th>
+            <th style="color: white !important; background-color: #786e4e !important;">Team Name</th>
+            <th style="color: white !important; background-color: #786e4e !important;">Team Leader</th>
+            <th style="color: white !important; background-color: #786e4e !important;">Members Count</th>
           </tr>
         </thead>
         <tbody>
             {% for team in team_list %}
             <tr onclick="window.location.href='{% url 'TaskTracker:team_detail' team.id %}'" style="cursor: pointer;">
               <td>{{ team.name }}</td>
-                <td>
-                  {% if team.team_lead %}
-                    {{ team.team_lead }}
-                  {% else %}
-                    No Team lead
-                  {% endif %}
-                </td>
+              <td>
+                {% if team.team_lead %}
+                  {{ team.team_lead }}
+                {% else %}
+                  No Team lead
+                {% endif %}
+              </td>
               <td>{{ team.member_count }}</td>
             </tr>
           {% endfor %}
@@ -43,26 +43,64 @@
   </div>
 </section>
 
-
-
 <style>
+  body {
+    background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
   table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 
+  table th, table td {
+    padding: 15px;
+    text-align: left;
+  }
 
-tbody tr:hover {
-  background-color: #f1f1f1;
-}
+  table th {
+    background-color: #5c6bc0 !important;
+    color: white !important;
+    font-weight: bold;
+  }
 
+  table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 2.5rem;
+  }
+
+  .table tbody tr {
+    cursor: pointer;
+  }
 </style>
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE -->
 {% block javascripts %}
-
   <script src="{{ ASSETS_ROOT }}/js/plugins/countup.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/choices.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/plugins/rellax.min.js"></script>
@@ -97,5 +135,4 @@ tbody tr:hover {
       };
     }
   </script>
-
 {% endblock javascripts %}
