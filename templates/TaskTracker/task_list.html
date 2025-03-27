@@ -10,22 +10,23 @@
 
     <div class="list-group">
       {% for task in tasks %}
-      <a href="{% url 'TaskTracker:task-detail' task.pk %}" class="list-group-item list-group-item-action">
+      <a href="{% url 'TaskTracker:task_detail' task.pk %}" class="list-group-item list-group-item-action">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ task.title }}</h5>
+            <h5 class="card-title">{{ task.name }}</h5>
             <p class="card-text">{{ task.description }}</p>
-            <small>Due: {{ task.due_date }}</small>
+            <small>Due: {{ task.deadline|default:"No due date" }}</small>
           </div>
         </div>
       </a>
+      {% empty %}
+      <p class="text-center">No tasks available at the moment.</p>
       {% endfor %}
     </div>
   </div>
 </section>
 
 <style>
-/* Градієнтний фон */
 body {
   background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
   background-size: 400% 400%;
@@ -35,7 +36,6 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Анімація для градієнта */
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -48,19 +48,16 @@ body {
   }
 }
 
-/* Стилі для контейнера */
 .container {
   padding: 40px;
 }
 
-/* Стилі для заголовка */
 h2 {
-  color: #ce0f9c;
+  color: #ffffff;
   font-weight: bold;
   font-size: 2.5rem;
 }
 
-/* Список завдань */
 .list-group-item {
   font-size: 1.2rem;
   color: #333;
@@ -69,19 +66,16 @@ h2 {
   transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Стилі при наведенні */
 .list-group-item:hover {
   background-color: #f1f1f1;
   transform: translateY(-5px);
 }
 
-/* Активне завдання */
 .list-group-item.active {
   background-color: #4CAF50;
   color: #ffffff;
 }
 
-/* Стилі для картки завдання */
 .card {
   border: none;
   border-radius: 10px;
@@ -91,26 +85,22 @@ h2 {
   transition: transform 0.3s ease-in-out;
 }
 
-/* Ефект при наведенні на картку */
 .card:hover {
   transform: translateY(-3px);
 }
 
-/* Заголовок картки */
 .card-title {
   font-size: 1.6rem;
   font-weight: 600;
-  color: #4CAF50;
+  color: #786e4e;
   margin-bottom: 20px;
 }
 
-/* Опис картки */
 .card-text {
   font-size: 1.1rem;
   color: #555;
   margin-bottom: 30px;
 }
-
 
 small {
   font-size: 1rem;

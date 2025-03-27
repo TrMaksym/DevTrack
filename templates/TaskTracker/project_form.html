@@ -1,30 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %} Create Project {% endblock title %}
+{% block title %} {% if project %} Update Project {% else %} Create Project {% endif %} {% endblock title %}
 
 {% block stylesheets %}{% endblock stylesheets %}
 
-{% block body_class %} create-project-page {% endblock body_class %}
+{% block body_class %} {% if project %} update-project-page {% else %} create-project-page {% endif %} {% endblock body_class %}
 
 {% load crispy_forms_filters %}
 
 {% block content %}
-<section class="create-project py-5">
+<section class="project-form py-5">
   <div class="container">
-    <h2 class="text-center mb-4 mt-6" style="color: #ce0f9c;">Create New Project</h2>
+    <h2 class="text-center mb-4 mt-6" style="color: #786e4e;">
+      {% if project %} Update Project: {{ project.name }} {% else %} Create New Project {% endif %}
+    </h2>
     <div class="row justify-content-center">
       <div class="col-md-10 col-lg-8">
-        <div class="card create-project-card">
+        <div class="card project-card">
           <div class="card-body">
 
-            <h5 class="card-title">Enter Project Details</h5>
+            <h5 class="card-title">{% if project %} Update Project Details {% else %} Enter Project Details {% endif %}</h5>
             <form action="" method="post" novalidate>
               {% csrf_token %}
               <div class="form-group">
                 {{ form|crispy }}
               </div>
-              <button type="submit" class="btn btn-primary btn-block" style="background-color: #ce0f9c; border-color: #ce0f9c;">
-                Create Project
+              <button type="submit" class="btn btn-primary btn-block" style="background-color: #786e4e; border-color: #786e4e;">
+                {% if project %} Update Project {% else %} Create Project {% endif %}
               </button>
             </form>
 

@@ -40,10 +40,14 @@
     background-color: #28a745;
     color: white;
     border-color: #28a745;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
 
   .pagination-custom .page-item .page-link {
     color: #007bff; /* синій */
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
   }
 
   .pagination-custom .page-item.disabled .page-link {
@@ -54,6 +58,11 @@
     background-color: #ffc107;
     color: white;
     border-color: #ffc107;
+  }
+
+  .pagination-custom .page-item .page-link:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
   }
 </style>
 
