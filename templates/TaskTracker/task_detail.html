@@ -1,108 +1,121 @@
 {% extends 'base.html' %}
 
-{% block title %} Task Detail {% endblock title %}
+{% block title %} Деталі Завдання {% endblock title %}
 
 {% block content %}
-<br>
-<br>
-<br>
-<section class="task-detail py-5" style="
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-">
-  <div class="container text-center">
-    <h2 class="mb-4" style="color: #ce0f9c;">Task Details</h2>
-    <div class="row justify-content-center">
-      <div class="col-12">
-        <div class="card task-detail-card">
-          <div class="card-body">
-            <h5 class="card-title">Task: <strong>{{ object.title }}</strong></h5>
-            <p class="card-text">
-              <strong>Description:</strong> {{ object.description }}
-            </p>
-            <p class="card-text">
-              <strong>Assigned to:</strong> {{ object.assigned_to.first_name }} {{ object.assigned_to.last_name }}
-            </p>
-            <p class="card-text">
-              <strong>Due Date:</strong> {{ object.due_date }}
-            </p>
-            <p class="card-text">
-              <strong>Status:</strong> {{ object.status }}
-            </p>
+  <section class="task-detail py-5 mt-7"
+           style="background: linear-gradient(135deg, #e8dbb3 0%, #da6e6e 100%); height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div class="container text-center">
+      <h2 class="mb-4 text-white" style="font-size: 2.5rem; font-weight: bold;">Detail Task</h2>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+          <div class="card task-detail-card shadow-lg border-0 rounded-lg">
+            <div class="card-body p-5" style="background-color: #ffffff; border-radius: 10px;">
+              <h5 class="card-title" style="color: #333; font-weight: 600; font-size: 1.7rem;">Task:
+                <strong>{{ object.name }}</strong></h5>
+              <p class="card-text" style="font-size: 1.1rem; color: #555; line-height: 1.7;">
+                <strong>Description:</strong> {{ object.description }}
+              </p>
+              <p class="card-text" style="font-size: 1.1rem; color: #555; line-height: 1.7;">
+                <strong>Assigned to:</strong> {{ object.assignees.first.name }} {{ object.assignees.first.last_name }}
+              </p>
+              <p class="card-text" style="font-size: 1.1rem; color: #555; line-height: 1.7;">
+                <strong>Due Date:</strong> {{ object.deadline|date:"Y-m-d" }}
+              </p>
+              <p class="card-text" style="font-size: 1.1rem; color: #555; line-height: 1.7;">
+                <strong>Status:</strong> {{ object.is_completed|yesno:"Completed,Not Completed" }}
+              </p>
 
-            <div class="d-flex justify-content-between">
-              <a href="{% url 'TaskTracker:task-update' object.pk %}" class="btn btn-warning">Edit Task</a>
-              <a href="{% url 'TaskTracker:task-delete' object.pk %}" class="btn btn-danger">Delete Task</a>
+              <div class="d-flex justify-content-between mt-4">
+                <a href="{% url 'TaskTracker:task-update' object.pk %}" class="btn custom-btn btn-warning">Edit Task</a>
+                <a href="{% url 'TaskTracker:task-delete' object.pk %}" class="btn custom-btn btn-danger">Delete
+                  Task</a>
+              </div>
+
+              <a href="{% url 'TaskTracker:task_list' %}" class="btn custom-btn btn-secondary mt-3">Return to Task
+                List</a>
             </div>
-
-            <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-secondary mt-3">Back to Task List</a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
 {% endblock %}
 
 <style>
-.task-detail-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
+    section.task-detail {
+        background: linear-gradient(135deg, #da6e6e 0%, #e8dbb3 100%);
+        padding: 60px 0;
+    }
 
-.task-detail-card .card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 16px;
-}
+    .task-detail-card {
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.task-detail-card .card-text {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 20px;
-}
+    .task-detail-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-.task-detail-card .btn {
-  font-size: 1rem;
-  text-transform: uppercase;
-  padding: 10px 20px;
-}
+    .card-title {
+        color: #333;
+        font-weight: 600;
+        font-size: 1.7rem;
+    }
 
-.btn-warning {
-  background-color: #ffc107;
-  border-color: #ffc107;
-}
+    .card-text {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.7;
+    }
 
-.btn-warning:hover {
-  background-color: #e0a800;
-  border-color: #e0a800;
-}
+    .btn {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: 50px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
+    .custom-btn {
+        transition: transform 0.3s ease;
+    }
 
-.btn-danger:hover {
-  background-color: #a71d2a;
-  border-color: #a71d2a;
-}
+    .custom-btn:hover {
+        transform: scale(1.05);
+    }
 
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
 
-.btn-secondary:hover {
-  background-color: #565e64;
-  border-color: #565e64;
-}
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+    }
 
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
 
+    .btn-danger:hover {
+        background-color: #a71d2a;
+        border-color: #a71d2a;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #565e64;
+        border-color: #565e64;
+    }
 </style>
