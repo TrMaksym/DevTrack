@@ -2,27 +2,30 @@
 
 {% block title %} Presentation {% endblock title %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block body_class %} index-page {% endblock body_class %}
 
 {% block content %}
 
-<section class="teams-table py-5">
-  <div class="container">
-    <h2 class="text-left mb-4 mt-6" style="color: #ffffff;">Team List</h2>
-    {% if team_list %}
-      <table class="table table-striped">
-        <thead>
+  <section class="teams-table py-5">
+    <div class="container">
+      <h2 class="text-left mb-4 mt-6" style="color: #ffffff;">Team List</h2>
+      <form method="get" class="search-form">
+        <input type="text" id="search" name="search" value="{{ search }}" placeholder="Search tasks">
+        <button type="submit">Search</button>
+      </form>
+      {% if team_list %}
+        <table class="table table-striped">
+          <thead>
           <tr>
             <th style="color: white !important; background-color: #786e4e !important;">Team Name</th>
             <th style="color: white !important; background-color: #786e4e !important;">Team Leader</th>
             <th style="color: white !important; background-color: #786e4e !important;">Members Count</th>
           </tr>
-        </thead>
-        <tbody>
-            {% for team in team_list %}
+          </thead>
+          <tbody>
+          {% for team in team_list %}
             <tr onclick="window.location.href='{% url 'TaskTracker:team_detail' team.id %}'" style="cursor: pointer;">
               <td>{{ team.name }}</td>
               <td>
@@ -35,68 +38,129 @@
               <td>{{ team.member_count }}</td>
             </tr>
           {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>There are no teams yet</p>
-    {% endif %}
-  </div>
-</section>
+          </tbody>
+        </table>
+      {% else %}
+        <p>There are no teams yet</p>
+      {% endif %}
+    </div>
+  </section>
 
-<style>
-  body {
-    background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
-    background-size: 400% 400%;
-    animation: gradient 10s ease infinite;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-  }
+  <style>
+      body {
+          background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
+          background-size: 400% 400%;
+          animation: gradient 10s ease infinite;
+          height: 100vh;
+          margin: 0;
+          font-family: 'Roboto', sans-serif;
+      }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
+      @keyframes gradient {
+          0% {
+              background-position: 0% 50%;
+          }
+          50% {
+              background-position: 100% 50%;
+          }
+          100% {
+              background-position: 0% 50%;
+          }
+      }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+      .search-form {
+          margin-bottom: 30px;
+          max-width: 400px;
+          margin-left: auto;
+          margin-right: auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border: 2px solid #ffffff;
+          padding: 10px;
+          border-radius: 21px;
+          background-color: rgba(255, 255, 255, 0.8);
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
 
-  table th, table td {
-    padding: 15px;
-    text-align: left;
-  }
+      .search-form input[type="text"] {
+          padding: 10px;
+          font-size: 1rem;
+          width: 100%;
+          border: none;
+          border-radius: 15px;
+          outline: none;
+          transition: all 0.3s ease;
+      }
 
-  table th {
-    background-color: #5c6bc0 !important;
-    color: white !important;
-    font-weight: bold;
-  }
+      .search-form input[type="text"] {
+          padding: 10px;
+          font-size: 1rem;
+          width: 80%;
+          border: none;
+          border-radius: 20px;
+          outline: none;
+          transition: all 0.3s ease;
+      }
 
-  table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
+      .search-form input[type="text"]:focus {
+          border: 1px solid #e8dbb3;
+          box-shadow: 0 0 5px rgb(120, 110, 78);
+      }
 
-  h2 {
-    font-weight: bold;
-    font-size: 2.5rem;
-  }
+      .search-form button {
+          background-color: #e8dbb3;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          font-size: 1rem;
+          border-radius: 20px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
 
-  .table tbody tr {
-    cursor: pointer;
-  }
-</style>
+      .search-form button:hover {
+          background-color: #d5c696;
+      }
+
+      .search-form label,
+      .search-form .form-label {
+          display: none;
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          background-color: rgba(255, 255, 255, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      table th, table td {
+          padding: 15px;
+          text-align: left;
+      }
+
+      table th {
+          background-color: #5c6bc0 !important;
+          color: white !important;
+          font-weight: bold;
+      }
+
+      table tbody tr:hover {
+          background-color: #f1f1f1;
+      }
+
+      h2 {
+          text-align: center;
+          font-weight: bold;
+          font-size: 2.5rem;
+      }
+
+      .table tbody tr {
+          cursor: pointer;
+      }
+  </style>
 
 {% endblock content %}
 
@@ -110,29 +174,30 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
   <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
   <script type="text/javascript">
-    if (document.getElementById('state1')) {
-      const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-      if (!countUp.error) {
-        countUp.start();
-      } else {
-        console.error(countUp.error);
+      if (document.getElementById('state1')) {
+          const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+          if (!countUp.error) {
+              countUp.start();
+          } else {
+              console.error(countUp.error);
+          }
       }
-    }
-    if (document.getElementById('state2')) {
-      const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
-      if (!countUp1.error) {
-        countUp1.start();
-      } else {
-        console.error(countUp1.error);
+      if (document.getElementById('state2')) {
+          const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+          if (!countUp1.error) {
+              countUp1.start();
+          } else {
+              console.error(countUp1.error);
+          }
       }
-    }
-    if (document.getElementById('state3')) {
-      const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
-      if (!countUp2.error) {
-        countUp2.start();
-      } else {
-        console.error(countUp2.error);
-      };
-    }
+      if (document.getElementById('state3')) {
+          const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+          if (!countUp2.error) {
+              countUp2.start();
+          } else {
+              console.error(countUp2.error);
+          }
+          ;
+      }
   </script>
 {% endblock javascripts %}

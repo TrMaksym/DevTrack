@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView, TemplateView
 
-from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm, PositionForm, TaskTypeSearchForm
+from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm, PositionForm, TaskTypeSearchForm, TeamListForm
 from .models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -83,6 +83,18 @@ class TeamListView(LoginRequiredMixin, generic.ListView):
     queryset = Team.objects.select_related("team_lead").annotate(member_count=Count("members")).order_by("name")
     paginate_by = 10
     template_name = "TaskTracker/team_list.html"
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('search', "")
+        queryset = super().get_queryset()
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = TeamListForm(self.request.GET)
+        return context
 
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):

@@ -88,3 +88,10 @@ class TaskTypeSearchForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Search Task Type"})
     )
+
+class TeamListForm(forms.Form):
+    search = forms.CharField(
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Search Team"})
+    )
