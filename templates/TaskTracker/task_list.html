@@ -3,109 +3,177 @@
 {% block title %}Task List{% endblock %}
 
 {% block content %}
-<section class="task-list">
-  <div class="container mt-7">
-    <h2 class="text-center">Your Tasks</h2>
-    <p class="text-center">Here is the list of all your tasks. Click on a task to edit or view details.</p>
+  <section class="task-list">
+    <div class="container mt-7">
+      <h2 class="text-center">Your Tasks</h2>
+      <p class="text-center">Here is the list of all your tasks. Click on a task to edit or view details.</p>
 
-    <div class="list-group">
-      {% for task in tasks %}
-      <a href="{% url 'TaskTracker:task_detail' task.pk %}" class="list-group-item list-group-item-action">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ task.name }}</h5>
-            <p class="card-text">{{ task.description }}</p>
-            <small>Due: {{ task.deadline|default:"No due date" }}</small>
-          </div>
-        </div>
-      </a>
-      {% empty %}
-      <p class="text-center">No tasks available at the moment.</p>
-      {% endfor %}
+      <form method="get" class="mb-4 search-form">
+        <input type="text" id="search" name="search" value="{{ search }}" placeholder="Search tasks"
+               class="form-control">
+        <button type="submit" class="btn btn-primary mt-2 search-btn">Search</button>
+      </form>
+
+      <div class="list-group">
+        {% for task in tasks %}
+          <a href="{% url 'TaskTracker:task_detail' task.pk %}" class="list-group-item list-group-item-action">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ task.name }}</h5>
+                <p class="card-text">{{ task.description }}</p>
+                <small>Due: {{ task.deadline|default:"No due date" }}</small>
+              </div>
+            </div>
+          </a>
+          {% empty %}
+          <p class="text-center">No tasks available at the moment.</p>
+        {% endfor %}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<style>
-body {
-  background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  height: 100vh;
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-}
+  <style>
+      body {
+          background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
+          background-size: 400% 400%;
+          animation: gradient 10s ease infinite;
+          height: 100vh;
+          margin: 0;
+          font-family: 'Roboto', sans-serif;
+      }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+      @keyframes gradient {
+          0% {
+              background-position: 0% 50%;
+          }
+          50% {
+              background-position: 100% 50%;
+          }
+          100% {
+              background-position: 0% 50%;
+          }
+      }
 
-.container {
-  padding: 40px;
-}
+      .container {
+          padding: 40px;
+      }
 
-h2 {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 2.5rem;
-}
+      h2 {
+          color: #ffffff;
+          font-weight: bold;
+          font-size: 2.5rem;
+      }
 
-.list-group-item {
-  font-size: 1.2rem;
-  color: #333;
-  padding: 12px 20px;
-  border-radius: 8px;
-  transition: background-color 0.3s, transform 0.2s;
-}
+      .list-group-item {
+          font-size: 1.2rem;
+          color: #333;
+          padding: 12px 20px;
+          border-radius: 8px;
+          transition: background-color 0.3s, transform 0.2s;
+      }
 
-.list-group-item:hover {
-  background-color: #f1f1f1;
-  transform: translateY(-5px);
-}
+      .list-group-item:hover {
+          background-color: #f1f1f1;
+          transform: translateY(-5px);
+      }
 
-.list-group-item.active {
-  background-color: #4CAF50;
-  color: #ffffff;
-}
 
-.card {
-  border: none;
-  border-radius: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  transition: transform 0.3s ease-in-out;
-}
+      .card {
+          border: none;
+          border-radius: 10px;
+          background-color: #ffffff;
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          transition: transform 0.3s ease-in-out;
+      }
 
-.card:hover {
-  transform: translateY(-3px);
-}
+      .card:hover {
+          transform: translateY(-3px);
+      }
 
-.card-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #786e4e;
-  margin-bottom: 20px;
-}
+      .card-title {
+          font-size: 1.6rem;
+          font-weight: 600;
+          color: #786e4e;
+          margin-bottom: 20px;
+      }
 
-.card-text {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 30px;
-}
+      .card-text {
+          font-size: 1.1rem;
+          color: #555;
+          margin-bottom: 30px;
+      }
 
-small {
-  font-size: 1rem;
-  color: #a69b9b;
-}
+      small {
+          font-size: 1rem;
+          color: #a69b9b;
+      }
 
-</style>
+      .search-form {
+          display: flex;
+          margin-bottom: 2rem;
+          max-width: 400px;
+          margin-left: auto;
+          margin-right: auto;
+      }
+
+      .search-btn {
+          cursor: pointer;
+          transition: background-color 0.3s, transform 0.2s;
+          background-color: #786e4e;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+          border: 1px solid #786e4e;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .search-btn:hover {
+          background-color: #786e4e;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(120, 110, 78, 0.5);
+      }
+
+      .search-btn:active {
+          background-color: #5e4a33;
+          box-shadow: 0 2px 4px rgba(120, 110, 78, 0.3);
+      }
+
+      .search-btn:focus-visible {
+          outline: none !important;
+          background-color: #786e4e !important;
+          box-shadow: 0 4px 8px rgba(120, 110, 78, 0.5) !important;
+      }
+
+      .form-control {
+          display: block;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+          font-weight: 400;
+          line-height: 1.5rem;
+          color: #495057;
+          background-color: transparent;
+          background-clip: padding-box;
+          border: 1px solid #786e4e;
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+          transition: 0.2s ease;
+      }
+
+      .form-control:focus {
+          background-color: #fff;
+          border-color: #786e4e;
+          box-shadow: 0 0 5px rgb(120, 110, 78);
+      }
+
+      .form-control::placeholder {
+          color: #786e4e;
+          opacity: 1;
+      }
+  </style>
+
 {% endblock content %}
