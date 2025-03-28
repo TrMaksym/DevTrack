@@ -113,14 +113,18 @@
                       Creation pages
                     </h6>
                     <a href="{% url 'TaskTracker:project_create' %}" class="dropdown-item border-radius-md">
-                      Create new project
+                      <strong>Create Project</strong> – Start managing a new project.
                     </a>
                     <a href="{% url 'TaskTracker:worker-create' %}" class="dropdown-item border-radius-md">
-                      Register new worker
+                      <strong>Add Team Member</strong> – Register a new worker to your team.
                     </a>
                     <a href="{% url 'TaskTracker:team-create' %}" class="dropdown-item border-radius-md">
-                      Define new team
+                      <strong>Create Team</strong> – Set up a new collaborative team.
                     </a>
+                    <a href="{% url 'TaskTracker:position_create' %}" class="dropdown-item border-radius-md">
+                      <strong>Add Job Role</strong> – Define positions for your team.
+                    </a>
+
 
                   </div>
                 </div>

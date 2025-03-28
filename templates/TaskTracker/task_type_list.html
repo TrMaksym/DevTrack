@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %} Task Types {% endblock %}
+{% block title %}Task Types{% endblock %}
 
 {% block body_class %} task-types-page {% endblock %}
 
 {% block stylesheets %}
   <style>
     body {
+      font-family: 'Roboto', sans-serif;
       background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
       background-size: 400% 400%;
       animation: gradient 10s ease infinite;
       height: 100vh;
       margin: 0;
-      font-family: 'Roboto', sans-serif; /* Вибір шрифта */
     }
 
     @keyframes gradient {
@@ -32,9 +32,56 @@
     }
 
     h1 {
-      color: #ce0f9c;
+      color: #786e4e;
       font-weight: bold;
       font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .search-form {
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 2px solid #ffffff;
+      padding: 10px;
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-form input[type="text"] {
+      padding: 10px;
+      font-size: 1rem;
+      width: 80%;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-form input[type="text"]:focus {
+      border: 1px solid #e8dbb3;
+      box-shadow: 0 0 5px rgb(120, 110, 78);
+    }
+
+    .search-form button {
+      background-color: #e8dbb3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .search-form button:hover {
+      background-color: #d5c696;
     }
 
     .list-group-item {
@@ -52,31 +99,23 @@
 
     .badge {
       font-size: 1rem;
+      color: #ffffff;
+      background-color: transparent;
+      border-radius: 12px;
+      border: 2px solid transparent;
     }
 
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
+    .badge-zero {
+      color: #ddc9b0;
+      background-color: transparent;
+      border: none;
     }
 
-    .pagination a {
-      color: #786e4e;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: 1rem;
-      font-weight: bold;
+    .badge-one {
+      color: #ddc9b0;
+      background-color: #786e4e;
+      border: 2px solid #ffffff;
     }
-
-    .pagination a:hover {
-      text-decoration: underline;
-    }
-
-    .pagination .current {
-      font-size: 1rem;
-      color: #333;
-    }
-
   </style>
 {% endblock stylesheets %}
 
@@ -84,31 +123,29 @@
   <div class="container mt-5">
     <h1 class="text-center mb-5">Task Types</h1>
 
+    <!-- Форма пошуку -->
+    <form method="get" class="search-form">
+        <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search task types...">
+        <button type="submit">Search</button>
+    </form>
+
     <div class="list-group mt-4">
       {% for task_type in task_type_list %}
-        <a href="{% url 'TaskTracker:task_type_detail' pk=task_type.pk %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        <a href="{% url 'TaskTracker:task_type_detail' pk=task_type.pk %}"
+           class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
           <span>{{ task_type.name }}</span>
-          <span class="badge bg-primary rounded-pill">{{ task_type.task_count }} task{{ task_type.task_count|pluralize }}</span>
+
+          {% if task_type.task_count == 0 %}
+            <span class="badge badge-zero">{{ task_type.task_count }} tasks</span>
+          {% elif task_type.task_count == 1 %}
+            <span class="badge badge-one">{{ task_type.task_count }} task</span>
+          {% else %}
+            <span class="badge bg-primary rounded-pill">{{ task_type.task_count }} task{{ task_type.task_count|pluralize }}</span>
+          {% endif %}
         </a>
       {% endfor %}
     </div>
 
-    {% if is_paginated %}
-      <div class="pagination mt-4">
-        <span class="step-links">
-          {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-          {% endif %}
-
-          <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
-
-          {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-        </span>
-      </div>
-    {% endif %}
+    {% include 'includes/pagination.html' %}
   </div>
 {% endblock %}

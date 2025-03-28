@@ -2,23 +2,24 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-10">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
+<div class="container mt-8">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-gradient text-white rounded-top-4">
             <h2 class="mb-0">{{ task_type.name }}</h2>
         </div>
         <div class="card-body">
-            <h5 class="card-title">Task Type Details</h5>
-            <p class="card-text">Below are all the tasks categorized under "{{ task_type.name }}"</p>
+            <h5 class="card-title mb-4">Task Type Details</h5>
+            <p class="card-text mb-4">Below are all the tasks categorized under "{{ task_type.name }}".</p>
 
             {% if tasks %}
-                <ul class="list-group">
+                <ul class="list-group list-group-flush">
                     {% for task in tasks %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="{% url 'management:task-detail' task.id %}" class="text-decoration-none">
-                                {{ task.name }}
+                        <li class="list-group-item d-flex justify-content-between align-items-center task-item shadow-sm rounded-3 mb-2">
+                            <a href="{% url 'management:task-detail' task.id %}" class="text-decoration-none text-dark">
+                                <h5 class="mb-1">{{ task.name }}</h5>
+                                <small class="text-muted">{{ task.deadline }}</small>
                             </a>
-                            <span class="badge bg-{{ task.priority|lower }} text-uppercase">
+                            <span class="badge rounded-pill task-priority bg-{{ task.priority|lower }}">
                                 {{ task.get_priority_display }}
                             </span>
                         </li>
@@ -28,12 +29,82 @@
                 <p class="text-muted">No tasks available for this type.</p>
             {% endif %}
         </div>
-        <div class="card-footer text-end">
-            <a href="{% url 'TaskTracker:task_type_list' %}" class="btn btn-secondary">Back to Task Types</a>
-            <a href="{% url 'TaskTracker:task_type_update' task_type.id %}" class="btn btn-warning">Edit Task Type</a>
-            <a href="{% url 'TaskTracker:task_type_delete' task_type.id %}" class="btn btn-danger">Delete</a>
+
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <a href="{% url 'TaskTracker:task_type_list' %}" class="btn btn-outline-secondary rounded-pill shadow-sm px-4 py-2">Back to Task Types</a>
+            <div>
+                <a href="{% url 'TaskTracker:task_type_update' task_type.id %}" class="btn btn-warning rounded-pill shadow-sm px-4 py-2 me-2">Edit Task Type</a>
+                <a href="{% url 'TaskTracker:task_type_delete' task_type.id %}" class="btn btn-danger rounded-pill shadow-sm px-4 py-2" onclick="return confirm('Are you sure you want to delete this Task Type?')">Delete</a>
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
+
+<style>
+    .bg-gradient {
+        background: linear-gradient(135deg, #007bff, #6f42c1);
+    }
+
+    .task-item {
+        background-color: #fdfdfd;
+        transition: all 0.3s ease-in-out;
+        padding: 15px;
+    }
+
+    .task-item:hover {
+        background-color: #f1f1f1;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-priority {
+        font-weight: 700;
+        padding: 0.5em 1.2em;
+    }
+
+    .task-priority.urg {
+        background-color: #ff4d4f;
+        color: white;
+    }
+
+    .task-priority.hi {
+        background-color: #ffc107;
+        color: black;
+    }
+
+    .task-priority.md {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .task-priority.lo {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-outline-secondary {
+        font-size: 16px;
+        border: 2px solid #6c757d;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-warning, .btn-danger {
+        font-size: 16px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-warning:hover, .btn-danger:hover {
+        transform: scale(1.05);
+    }
+
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+</style>

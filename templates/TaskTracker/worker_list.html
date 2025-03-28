@@ -8,127 +8,145 @@
       <h1 class="workers-title">Workers List</h1>
 
       <form method="get" class="mb-4 search-form">
-        <input type="text" id="search" name="search" value="{{ search }}" placeholder="Search workers" class="form-control">
+        <input type="text" id="search" name="search" value="{{ search }}" placeholder="Search workers"
+               class="form-control">
         <button type="submit" class="btn btn-primary mt-2 search-btn">Search</button>
       </form>
 
       <ul class="workers-list">
         {% for worker in worker_list %}
           <li class="worker-item">
-            <a href="{% url 'TaskTracker:worker-detail' worker.pk %}">{{ worker.first_name }} {{ worker.last_name }} - {{ worker.position.name }}</a>
+            <a href="{% url 'TaskTracker:worker-detail' worker.pk %}">{{ worker.first_name }} {{ worker.last_name }}
+              - {{ worker.position.name }}</a>
           </li>
-        {% empty %}
+          {% empty %}
           <li class="worker-item">No workers found.</li>
         {% endfor %}
       </ul>
     </div>
   </section>
+{% include 'includes/pagination.html' %}
 
   <style>
-    .workers-section {
-      background: linear-gradient(135deg, #786e4e, #875151);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 0;
-    }
+      .workers-section {
+          background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
+          background-size: 400% 400%;
+          animation: gradient 10s ease infinite;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 3rem 0;
+      }
 
-    .workers-container {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
+      @keyframes gradient {
+          0% {
+              background-position: 0% 50%;
+          }
+          50% {
+              background-position: 100% 50%;
+          }
+          100% {
+              background-position: 0% 50%;
+          }
+      }
 
-    .workers-title {
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 1.5rem;
-    }
+      .workers-container {
+          background: white;
+          border-radius: 12px;
+          padding: 2rem;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 900px;
+          box-sizing: border-box;
+      }
 
-    .workers-list {
-      list-style: none;
-      padding: 0;
-    }
+      .workers-title {
+          text-align: center;
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 1.5rem;
+      }
 
-    .worker-item {
-      padding: 0.8rem;
-      background-color: #f8f9fa;
-      border: 1px solid #e2e6ea;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      transition: background-color 0.3s, transform 0.2s;
-    }
+      .workers-list {
+          list-style: none;
+          padding: 0;
+      }
 
-    .worker-item:hover {
-      background-color: #ececec;
-      transform: translateY(-3px);
-    }
+      .worker-item {
+          padding: 0.8rem;
+          background-color: #f8f9fa;
+          border: 1px solid #e2e6ea;
+          border-radius: 8px;
+          margin-bottom: 10px;
+          transition: background-color 0.3s, transform 0.2s;
+      }
 
-    .worker-item a {
-      text-decoration: none;
-      font-weight: 500;
-      color: #786e4e;
-    }
+      .worker-item:hover {
+          background-color: #ececec;
+          transform: translateY(-3px);
+      }
 
-    /* Стилізація пошуку */
-    .search-form {
-      display: flex;
-      margin-bottom: 2rem;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+      .worker-item a {
+          text-decoration: none;
+          font-weight: 500;
+          color: #786e4e;
+      }
 
-    .search-btn {
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      background-color: #786e4e;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-top-right-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
-      border: 1px solid #786e4e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+      .search-form {
+          display: flex;
+          margin-bottom: 2rem;
+          max-width: 400px;
+          margin-left: auto;
+          margin-right: auto;
+      }
 
-    .search-btn:hover {
-      background-color: #786e4e;
-      transform: translateY(-2px);
-    }
+      .search-btn {
+          cursor: pointer;
+          transition: background-color 0.3s, transform 0.2s;
+          background-color: #786e4e;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+          border: 1px solid #786e4e;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
 
-    .form-control {
-      display: block;
-      width: 100%;
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      font-weight: 400;
-      line-height: 1.5rem;
-      color: #495057;
-      background-color: transparent;
-      background-clip: padding-box;
-      border: 1px solid #786e4e;
-      border-top-left-radius: 0.5rem;
-      border-bottom-left-radius: 0.5rem;
-      transition: 0.2s ease;
-    }
+      .search-btn:hover {
+          background-color: #786e4e;
+          transform: translateY(-2px);
+      }
 
-    .form-control:focus {
-      background-color: #fff;
-      border-color: #786e4e;
-      box-shadow: 0 0 5px rgba(181, 13, 126, 0.5);
-    }
+      .form-control {
+          display: block;
+          width: 100%;
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+          font-weight: 400;
+          line-height: 1.5rem;
+          color: #495057;
+          background-color: transparent;
+          background-clip: padding-box;
+          border: 1px solid #786e4e;
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+          transition: 0.2s ease;
+      }
 
-    .form-control::placeholder {
-      color: #786e4e;
-      opacity: 1;
-    }
+      .form-control:focus {
+          background-color: #fff;
+          border-color: #786e4e;
+          box-shadow: 0 0 5px rgb(120, 110, 78);
+      }
+
+      .form-control::placeholder {
+          color: #786e4e;
+          opacity: 1;
+      }
   </style>
 
-  {% include 'includes/pagination.html' %}
 {% endblock %}

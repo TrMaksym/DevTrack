@@ -4,7 +4,13 @@
     <ul class="pagination pagination-custom m-4">
       {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Previous">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET %}
+          {% for key, value in request.GET.items %}
+            {% if key != 'page' %}
+              &{{ key }}={{ value }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}" aria-label="Previous">
           <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
         </a>
       </li>
@@ -16,13 +22,25 @@
 
       {% for num in page_obj.paginator.page_range %}
       <li class="page-item {% if num == page_obj.number %}active{% endif %}">
-        <a class="page-link" href="?page={{ num }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}">{{ num }}</a>
+        <a class="page-link" href="?page={{ num }}{% if request.GET %}
+          {% for key, value in request.GET.items %}
+            {% if key != 'page' %}
+              &{{ key }}={{ value }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}">{{ num }}</a>
       </li>
       {% endfor %}
 
       {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Next">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET %}
+          {% for key, value in request.GET.items %}
+            {% if key != 'page' %}
+              &{{ key }}={{ value }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}" aria-label="Next">
           <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
         </a>
       </li>
@@ -36,34 +54,37 @@
 </div>
 
 <style>
-  .pagination-custom .page-item.active .page-link {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-
   .pagination-custom .page-item .page-link {
-    color: #007bff; /* синій */
-    border-radius: 5px;
-    padding: 10px 20px;
+    color: #000000;
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 20px;
     transition: background-color 0.3s ease;
-  }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-  .pagination-custom .page-item.disabled .page-link {
-    color: #6c757d; /* сірий */
-  }
-
-  .pagination-custom .page-item:hover .page-link {
-    background-color: #ffc107;
+.pagination-custom .page-item.active .page-link {
+    background-color: #e8dbb3;
     color: white;
-    border-color: #ffc107;
-  }
+    border-color: #e8dbb3;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
 
-  .pagination-custom .page-item .page-link:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  }
+.pagination-custom .page-item.disabled .page-link {
+    color: #6c757d;
+}
+
+.pagination-custom .page-item:hover .page-link {
+    background-color: #da6e6e;
+    color: white;
+    border-color: #da6e6e;
+}
+
 </style>
 
 {% endif %}
