@@ -30,6 +30,8 @@ class WorkerAdmin(UserAdmin):
         "get_full_name",
         "email",
         "position",
+        "phone_number",
+        "address"
     )
     search_fields = ("username", "first_name", "last_name", "position__name")
     ordering = ("position",)
@@ -37,7 +39,7 @@ class WorkerAdmin(UserAdmin):
         (
             "Additional information",
             {
-                "fields": ("position", "team"),
+                "fields": ("position", "team", "phone_number", "address",),
             },
         ),
     )
@@ -46,7 +48,7 @@ class WorkerAdmin(UserAdmin):
             "Additional information",
             {
                 "fields": (
-                    "first_name", "last_name", "email", "position", "team"
+                    "first_name", "last_name", "email", "position", "team", "phone_number", "address",
                 ),
             },
         ),

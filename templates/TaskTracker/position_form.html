@@ -1,4 +1,4 @@
-{% extends 'layouts/base-presentation.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
   {% if object %}
@@ -8,7 +8,6 @@
   {% endif %}
 {% endblock %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block body_class %} position-page {% endblock body_class %}

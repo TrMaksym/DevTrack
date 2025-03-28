@@ -95,3 +95,7 @@ class TeamListForm(forms.Form):
         required=False,
         widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Search Team"})
     )
+
+class WorkerForm(forms.Form):
+    model = Worker
+    fields = ["username", "first_name", "last_name", "email", "position", "team", "phone_number", "address"]

@@ -25,13 +25,19 @@
       </ul>
     </div>
   </section>
-{% include 'includes/pagination.html' %}
+  {% include 'includes/pagination.html' %}
 
   <style>
-      .workers-section {
+      body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
           background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
           background-size: 400% 400%;
           animation: gradient 10s ease infinite;
+      }
+
+      .workers-section {
           min-height: 100vh;
           display: flex;
           align-items: center;

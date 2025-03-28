@@ -178,7 +178,7 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
-    fields = ("username", "first_name", "last_name", "email", "position", "team")
+    fields = ("username", "first_name", "last_name", "email", "position", "team", "phone_number", "address", "date_of_birth")
     template_name = "TaskTracker/worker_form.html"
 
     def form_valid(self, form):
@@ -193,7 +193,7 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
 
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
-    fields = ("username", "first_name", "last_name", "email", "position", "team")
+    fields = ("username", "first_name", "last_name", "email", "position", "team", "phone_number", "address", "date_of_birth")
     template_name = "TaskTracker/worker_form.html"
 
     def form_valid(self, form):

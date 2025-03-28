@@ -19,11 +19,17 @@ class Team(models.Model):
     team_lead = models.ForeignKey("Worker", on_delete=models.SET_NULL, null=True, blank=True, related_name="team_lead_of")
     members = models.ManyToManyField("Worker", related_name='teams', blank=True)
 
+    def __str__(self):
+        return self.name
+
 
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True, related_name="members_of")
+    phone_number = models.CharField(max_length=255, null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
 
     groups = models.ManyToManyField("auth.Group", related_name="worker_set", blank=True)
     user_permissions = models.ManyToManyField("auth.Permission", related_name="worker_permissions", blank=True)
