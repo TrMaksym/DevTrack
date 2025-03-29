@@ -1,7 +1,7 @@
 {% if is_paginated %}
 <div class="row text-center py-2">
-  <div class="col-4 mx-auto">
-    <ul class="pagination pagination-custom m-4">
+  <div class="col-12">
+    <ul class="pagination pagination-custom justify-content-center m-4">
       {% if page_obj.has_previous %}
       <li class="page-item">
         <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET %}
@@ -66,25 +66,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.pagination-custom .page-item.active .page-link {
+  .pagination-custom .page-item.active .page-link {
     background-color: #e8dbb3;
     color: white;
     border-color: #e8dbb3;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
+  }
 
-.pagination-custom .page-item.disabled .page-link {
+  .pagination-custom .page-item.disabled .page-link {
     color: #6c757d;
-}
+  }
 
-.pagination-custom .page-item:hover .page-link {
+  .pagination-custom .page-item:hover .page-link {
     background-color: #da6e6e;
     color: white;
     border-color: #da6e6e;
-}
+  }
 
+  .pagination-custom {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 20px;
+  }
+
+  .pagination-custom .page-item {
+    margin: 0 5px;
+  }
 </style>
 
 {% endif %}
