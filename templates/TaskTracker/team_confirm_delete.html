@@ -1,11 +1,8 @@
-{% extends 'layouts/base-fullscreen.html' %}
+{% extends 'base.html' %}
 
 {% block title %} Delete Team {% endblock title %}
 
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}
   <link rel="stylesheet" href="{{ ASSETS_ROOT }}/css/styles.css">
-{% endblock stylesheets %}
 
 {% block body_class %} delete-team-page {% endblock body_class %}
 
@@ -14,7 +11,7 @@
 {% block content %}
 <section class="team-deletion py-5">
   <div class="container">
-    <h2 class="text-left mb-4 mt-6" style="color: #e02f8b;">Confirm Team Deletion</h2>
+    <h2 class="text-left mb-4 mt-6" style="color: #000000; text-align: center;" >Confirm Team Deletion</h2>
     <div class="row">
       <div class="col-md-8 offset-md-2">
         <div class="card team-deletion-card">
@@ -26,8 +23,8 @@
             <form action="" method="post">
               {% csrf_token %}
               <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-danger" style="width: 48%;">Yes, delete this team</button>
-                <a href="{% url 'management:team-list' %}" class="btn btn-secondary" style="width: 48%;">Cancel</a>
+                <button type="submit" class="btn btn-danger custom-btn-delete" style="width: 48%; color: #ffffff">Yes, delete this team</button>
+                <a href="{% url 'TaskTracker:team-list' %}" class="btn btn-secondary" style="width: 48%;">Cancel</a>
               </div>
             </form>
 
@@ -40,7 +37,6 @@
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE -->
 {% block javascripts %}
   <script src="{{ ASSETS_ROOT }}/js/plugins/sweetalert.min.js"></script>
   <script>
@@ -52,3 +48,21 @@
     });
   </script>
 {% endblock javascripts %}
+
+{% block stylesheets %}
+<style>
+  .custom-btn-delete {
+    border: none;
+    background-color: #786e4e;
+    color: white;
+    font-weight: bold;
+    box-shadow: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-btn-delete:hover {
+    background-color: rgb(120, 110, 78);
+    cursor: pointer;
+  }
+</style>
+{% endblock stylesheets %}

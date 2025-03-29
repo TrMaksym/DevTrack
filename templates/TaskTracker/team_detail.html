@@ -2,7 +2,6 @@
 
 {% block title %} Presentation {% endblock title %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block body_class %} index-page {% endblock body_class %}
@@ -11,7 +10,7 @@
 
 <section class="team-details py-5">
   <div class="container">
-    <h2 class="text-left mb-4 mt-6" style="color: #ce0f9c;">Team Details</h2>
+    <h2 class="text-left mb-4 mt-6" style="color: #786e4e;">Team Details</h2>
     <div class="row">
       <div class="col-12">
         <div class="card team-card">
@@ -58,7 +57,6 @@
               </div>
             </div>
 
-            <!-- Додаємо кнопки -->
             <div class="button-wrapper mt-4">
               <a href="{% url 'TaskTracker:team-update' team.id %}" class="btn btn-primary">Update</a>
               <a href="{% url 'TaskTracker:team-delete' team.id %}" class="btn btn-danger">Delete</a>
@@ -133,7 +131,7 @@ a {
 }
 
 a:hover {
-  color: #ce0f9c;
+  color: #ca6363;
   font-weight: bold;
 }
 
@@ -151,20 +149,20 @@ a:hover {
 }
 
 .btn-primary {
-  background-color: #ce0f9c;
-  border-color: #ce0f9c;
+  background-color: #786e4e;
+  border-color: #786e4e;
   color: white;
   text-transform: uppercase;
 }
 
 .btn-primary:hover {
-  background-color: #ac0d84;
-  border-color: #ac0d84;
+  background-color: #786e4e;
+  border-color: #786e4e;
 }
 
 .btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #636262;
+  border-color: #636262;
   color: white;
   text-transform: uppercase;
 }
@@ -177,7 +175,6 @@ a:hover {
 
 {% endblock content %}
 
-<!-- Specific JS goes HERE -->
 {% block javascripts %}
 
   <script src="{{ ASSETS_ROOT }}/js/plugins/countup.min.js"></script>
