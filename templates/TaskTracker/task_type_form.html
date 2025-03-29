@@ -4,58 +4,110 @@
 {% block title %}Create / Update Task Type{% endblock %}
 
 {% block content %}
-<div class="container mt-10">
-    <div class="card shadow-lg border-light">
-        <div class="card-header bg-gradient text-white">
-            <h2 class="mb-0">
-                {% if object %}Update{% else %}Create{% endif %} Task Type
-            </h2>
-        </div>
-        <div class="card-body">
-            <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-
-                <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn custom-btn rounded-pill px-4 py-2">
-                        {% if object %}Save changes{% else %}Create{% endif %}
-                    </button>
-                </div>
-            </form>
+<div class="task-type-container py-5 mt-6">
+    <div class="container-fluid">
+        <h2 class="animated-title text-center mb-4">
+            <span>{% if object %}Update{% else %}Create{% endif %} Task Type</span>
+        </h2>
+        <div class="card animated-card">
+            <div class="card-header bg-gradient text-white">
+                <h4 class="mb-0">{% if object %}Update{% else %}Create{% endif %} Task Type</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn custom-btn">
+                            {% if object %}Save changes{% else %}Create{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
 
+{% block stylesheets %}
 <style>
-    .bg-gradient {
-        background: linear-gradient(to right, #1f4037, #99f2c8);
+    /* Фон форми */
+    .task-type-container {
+        background: linear-gradient(135deg, #f8f9fa, #e5e7eb);
+    }
+
+    /* Анімація заголовка */
+    .animated-title span {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #786e4e;
+        text-transform: uppercase;
+        display: inline-block;
+        opacity: 0;
+        animation: fadeInUp 1.5s ease-in-out forwards;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Анімація картки */
+    .animated-card {
+        border-radius: 10px;
+        opacity: 0;
+        transform: scale(0.95);
+        animation: fadeInCard 1s ease-in-out forwards;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .animated-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes fadeInCard {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     .custom-btn {
         font-size: 16px;
-        font-weight: 600;
+        font-weight: bold;
         border: 2px solid #786e4e;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        background: linear-gradient(135deg, #b5a776, #786e4e);
+        color: white;
+        padding: 12px 25px;
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
     }
 
     .custom-btn:hover {
-        background-color: #5f523c;
+        background: linear-gradient(135deg, #e6bacd, #dde163);
+        box-shadow: 0 4px 12px rgba(146, 134, 165, 0.5);
         transform: scale(1.05);
-        border-color: #5f523c;
     }
 
-    /* Form and Card Styling */
-    .card {
-        border-radius: 10px;
-    }
-
-    .card-body {
-        padding: 2rem;
-    }
-
-    .container {
-        max-width: 800px;
+    /* Збільшення ширини контейнера */
+    .container-fluid {
+        max-width: 100%;  /* Забираємо обмеження на максимальну ширину */
+        width: 100%;      /* Встановлюємо ширину на 100% */
+        padding-right: 15px; /* Відступи для контейнера */
+        padding-left: 15px;
     }
 
 </style>
+{% endblock stylesheets %}
