@@ -62,7 +62,7 @@ class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "TaskTracker/task_type_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:task_type_detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task_type_list", kwargs={"pk": self.object.pk})
 
 
 class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -77,7 +77,7 @@ class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     context_object_name = "task_type"
-    success_url = reverse_lazy("TaskTracker:task-type-list")
+    success_url = reverse_lazy("TaskTracker:task_type_list")
     template_name = "TaskTracker/task_type_confirm_delete.html"
 
 

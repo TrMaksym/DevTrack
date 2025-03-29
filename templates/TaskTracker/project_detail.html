@@ -11,7 +11,7 @@
 
 <section class="project-details py-5">
   <div class="container">
-    <h2 class="text-left mb-4 mt-6" style="color: #ce0f9c;">Project Details</h2>
+    <h2 class="text-left mb-4 mt-6" style="color: #786e4e;">Project Details</h2>
     <div class="row">
       <div class="col-12">
         <div class="card project-card">
@@ -34,8 +34,8 @@
                   {{ project.is_completed|yesno:"Completed,Pending" }}
                 </p>
                 <div class="button-wrapper">
-                  <a href="{% url 'TaskTracker:project_update' project.id %}" class="btn btn-primary">Update</a>
-                  <a href="{% url 'TaskTracker:project_delete' project.id %}" class="btn btn-danger ml-3">Delete</a>
+                  <a href="{% url 'TaskTracker:project_update' project.id %}" class="btn btn-update">Update</a>
+                  <a href="{% url 'TaskTracker:project_delete' project.id %}" class="btn btn-delete ml-3">Delete</a>
                 </div>
               </div>
             </div>
@@ -86,50 +86,32 @@
   border: 2px solid;
 }
 
-.status.completed {
-  color: #28a745;
-  border-color: #28a745;
-}
-
-.status.pending {
-  color: #dc3545;
-  border-color: #dc3545;
-}
-
-.button-wrapper {
-  display: flex;
-  gap: 20px;
-}
-
 .btn {
-  padding: 10px 20px;
   font-size: 0.9rem;
-  border-radius: 6px;
-  text-align: center;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: transform 0.3s ease;
+  text-decoration: none;
 }
 
-.btn-primary {
-  background-color: #ce0f9c;
-  border-color: #ce0f9c;
-  color: white;
-  text-transform: uppercase;
+.btn-update,
+.btn-delete {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #333;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  transition: transform 0.3s ease;
+  text-decoration: none;
 }
 
-.btn-primary:hover {
-  background-color: #ac0d84;
-  border-color: #ac0d84;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-  color: white;
-  text-transform: uppercase;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-  border-color: #c82333;
+.btn-update:hover,
+.btn-delete:hover {
+  background-color: #f8f9fa;
+  color: #786e4e;
+  border-color: #786e4e;
+  transform: scale(1.05);
 }
 </style>
 
