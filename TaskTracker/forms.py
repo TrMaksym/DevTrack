@@ -1,5 +1,9 @@
+import datetime
+
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.forms import DateInput
+
 from .models import Worker, Team, Project, Task, Position
 
 
@@ -70,10 +74,17 @@ class TaskSearchForm(forms.Form):
         label="Filter by Priority"
     )
 
+
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name', 'description']
+        fields = ["name", "description", "deadline", "priority", "status", "priority"]
+
+    def clean_deadline(self):
+        deadline = self.cleaned_data["deadline"]
+        if deadline and deadline < datetime.date.today():
+            raise forms.ValidationError("The deadline must be in the future.")
+        return deadline
 
 
 

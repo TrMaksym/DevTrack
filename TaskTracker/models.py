@@ -1,3 +1,6 @@
+import datetime
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -49,6 +52,10 @@ class Project(models.Model):
 
     priority = models.CharField(max_length=20, choices=[("Low", "Low"), ("Medium", "Medium"), ("High", "High")], default="Medium")
     status = models.CharField(max_length=20, choices=[("Pending", "Pending"), ("In Progress", "In Progress"),("Completed", "Completed")], default="Pending")
+
+    def clean(self):
+        if self.deadline and self.deadline < datetime.date.today():
+            raise ValidationError({'deadline': 'The deadline must be in the future.'})
 
     def __str__(self):
         return self.name

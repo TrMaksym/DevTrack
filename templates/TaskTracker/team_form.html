@@ -5,110 +5,78 @@
 
 {% block stylesheets %}
   <style>
-    body {
-      background: linear-gradient(45deg, #ea4793, #d8c0b0, #e8dbb3, #adeaad, #0099ff);
-      background-size: 400% 400%;
-      animation: gradient 10s ease infinite;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Roboto', sans-serif;  /* Вибір шрифта */
-    }
-
-    @keyframes gradient {
-      0% {
-        background-position: 0% 50%;
+      .create-position {
+          background: linear-gradient(135deg, #f8f9fa, #e5e7eb) !important;
       }
-      50% {
-        background-position: 100% 50%;
+
+      .animated-title span{
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #c6b884;
+          text-transform: uppercase;
+          display: inline-block;
+          animation: fadeIn 2s ease-in-out forwards;
       }
-      100% {
-        background-position: 0% 50%;
+
+      @keyframes fadeIn {
+          from {
+              opacity: 0;
+              transform: translateY(-20px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
       }
-    }
 
-    .team-form-card {
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      background-color: #ffffff;
-      padding: 30px;
-    }
+      .custom-card {
+          border: none;
+          border-radius: 15px;
+          background-color: #ffffff;
+          padding: 25px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease-in-out;
+      }
 
-    .team-form-card .card-body {
-      padding: 30px;
-    }
+      .custom-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      }
 
-    .team-form-card h5 {
-      color: #ce0f9c;
-      font-weight: bold;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
+      .btn-gradient {
+          background: linear-gradient(135deg, #b5a776, #786e4e);
+          color: white;
+          text-transform: uppercase;
+          font-weight: bold;
+          padding: 12px 25px;
+          border-radius: 10px;
+          transition: all 0.3s ease-in-out;
+      }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
+      .btn-gradient:hover {
+          background: linear-gradient(135deg, #e6bacd, #dde163);
+          box-shadow: 0 4px 12px rgba(146, 134, 165, 0.5);
+      }
 
-    .form-group label {
-      font-size: 1rem;
-      font-weight: 500;
-      color: #333;
-    }
-
-    .form-group small {
-      font-size: 0.875rem;
-      color: #888;
-    }
-
-    .btn-primary {
-      background-color: #ce0f9c;
-      border-color: #ce0f9c;
-      padding: 12px 24px;
-      font-size: 1.1rem;
-      width: 100%;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .btn-primary:hover {
-      background-color: #a80c7b;
-      border-color: #a80c7b;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .text-muted {
-      font-size: 0.875rem;
-    }
-
-    .badge {
-      font-size: 1rem;
-      margin-right: 10px;
-    }
-
-    .form-control, .form-select {
-      border-radius: 6px;
-      font-size: 1rem;
-      padding: 10px;
-    }
-
-    .no-workers-message {
-      color: #dc3545;
-      font-size: 1rem;
-      font-weight: 500;
-    }
+      .form-group {
+          margin-top: 20px;
+      }
   </style>
 {% endblock stylesheets %}
 
 {% block body_class %} team-management-page {% endblock body_class %}
 
 {% block content %}
-  <section class="manage-team py-5">
+  <section class="create-position py-5">
     <div class="container">
-      <h2 class="text-center mb-4 mt-6" style="color: #ce0f9c;">{{ object|yesno:"Update current,Create new" }} Team</h2>
+      <h2 class="animated-title text-center mb-4 mt-6" style="color: #6e6449;">
+        <span>
+        {{ object|yesno:"Update current,Create new" }} Team
+          </span>
+      </h2>
       <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
-          <div class="card team-form-card">
+          <div class="card custom-card">
             <div class="card-body">
               <h5 class="card-title">
                 {% if object %}
@@ -119,7 +87,6 @@
               </h5>
               <form action="" method="post" novalidate>
                 {% csrf_token %}
-
                 <div class="form-group">
                   {{ form.name|as_crispy_field }}
                   <small class="text-muted">Enter the name of your team.</small>
@@ -139,8 +106,7 @@
                   {% endif %}
                 </div>
 
-                <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-gradient">
                   {{ object|yesno:"Update,Create" }}
                 </button>
               </form>
@@ -159,13 +125,13 @@
   <script src="{{ ASSETS_ROOT }}/js/plugins/tilt.min.js"></script>
   <script src="{{ ASSETS_ROOT }}/js/soft-design-system.min.js?v=1.0.1" type="text/javascript"></script>
   <script type="text/javascript">
-    if (document.getElementById('state1')) {
-        const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-        if (!countUp.error) {
-            countUp.start();
-        } else {
-            console.error(countUp.error);
-        }
-    }
+      if (document.getElementById('state1')) {
+          const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+          if (!countUp.error) {
+              countUp.start();
+          } else {
+              console.error(countUp.error);
+          }
+      }
   </script>
 {% endblock javascripts %}

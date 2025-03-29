@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView, TemplateView
 
-from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm, PositionForm, TaskTypeSearchForm, TeamListForm
+from .forms import ProjectSearchForm, WorkerSearchForm, TaskSearchForm, PositionForm, TaskTypeSearchForm, TeamListForm, \
+    ProjectForm
 from .models import TaskType, Position, Team, Worker, Project, Task
 
 
@@ -243,8 +244,8 @@ class ProjectDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
+    form_class = ProjectForm
     model = Project
-    fields = "__all__"
     template_name = "TaskTracker/project_form.html"
 
     def get_success_url(self):
@@ -252,8 +253,8 @@ class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
 
 
 class ProjectUpdateView(LoginRequiredMixin, generic.UpdateView):
+    form_class = ProjectForm
     model = Project
-    fields = "__all__"
     template_name = "TaskTracker/project_form.html"
 
 

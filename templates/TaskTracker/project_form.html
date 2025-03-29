@@ -1,41 +1,127 @@
 {% extends 'base.html' %}
 
-{% block title %} {% if project %} Update Project {% else %} Create Project {% endif %} {% endblock title %}
+{% block title %}
+  {% if project %}
+    Edit Project
+  {% else %}
+    Create Project
+  {% endif %}
+{% endblock %}
 
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block body_class %} {% if project %} update-project-page {% else %} create-project-page {% endif %} {% endblock body_class %}
+{% block body_class %} project-page {% endblock body_class %}
 
 {% load crispy_forms_filters %}
 
 {% block content %}
-<section class="project-form py-5">
-  <div class="container">
-    <h2 class="text-center mb-4 mt-6" style="color: #786e4e;">
-      {% if project %} Update Project: {{ project.name }} {% else %} Create New Project {% endif %}
+<section class="create-project py-5">
+  <div class="container mt-6">
+    <h2 class="animated-title text-center mb-5">
+      {% if project %}
+        <span>Edit Project: {{ project.name }}</span>
+      {% else %}
+        <span>Create a New Project</span>
+      {% endif %}
     </h2>
-    <div class="row justify-content-center">
-      <div class="col-md-10 col-lg-8">
-        <div class="card project-card">
-          <div class="card-body">
 
-            <h5 class="card-title">{% if project %} Update Project Details {% else %} Enter Project Details {% endif %}</h5>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card custom-card project-card">
+          <div class="card-body">
+            <h5 class="card-subtitle text-muted text-center mb-4">
+              {% if project %}
+                Update the Project Details Below
+              {% else %}
+                Enter the New Project Information
+              {% endif %}
+            </h5>
+
             <form action="" method="post" novalidate>
               {% csrf_token %}
               <div class="form-group">
                 {{ form|crispy }}
               </div>
-              <button type="submit" class="btn btn-primary btn-block" style="background-color: #786e4e; border-color: #786e4e;">
-                {% if project %} Update Project {% else %} Create Project {% endif %}
+
+              <button type="submit" class="btn btn-gradient btn-block mt-3">
+                {% if project %}
+                  Save Changes
+                {% else %}
+                  Create Project
+                {% endif %}
               </button>
             </form>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+.create-project {
+  background: linear-gradient(135deg, #f8f9fa, #e5e7eb);
+}
+
+.animated-title span {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #c6b884;
+  text-transform: uppercase;
+  display: inline-block;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-card {
+  border: none;
+  border-radius: 15px;
+  background-color: #ffffff;
+  padding: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.card-subtitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #5f5f5f;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #b5a776, #786e4e);
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #e6bacd, #dde163);
+  box-shadow: 0 4px 12px rgba(146, 134, 165, 0.5);
+}
+
+.form-group {
+  margin-top: 20px;
+}
+</style>
+
+
 {% endblock content %}
 
 {% block javascripts %}
