@@ -16,10 +16,12 @@ def index(request):
     num_teams = Team.objects.count()
     num_workers = Worker.objects.count()
     num_projects = Project.objects.count()
+    num_tasks = Task.objects.count()
     context = {
         "num_teams": num_teams,
         "num_workers": num_workers,
         "num_projects": num_projects,
+        "num_tasks": num_tasks,
     }
     return render(request, "TaskTracker/index.html", context=context)
 
