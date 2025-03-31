@@ -1,120 +1,173 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {% if object %}
-        Update Task: {{ object.name }}
-    {% else %}
-        Create Task
-    {% endif %}
+  {% if object %}
+    Update Task: {{ object.name }}
+  {% else %}
+    Create Task
+  {% endif %}
 {% endblock title %}
 
+{% block stylesheets %}
+  <link href="{{ ASSETS_ROOT }}/css/styles.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body_class %} task-form-page {% endblock body_class %}
+
+{% load crispy_forms_filters %}
+
 {% block content %}
-<section class="py-5">
-  <div class="container">
-    <h2 class="mb-4 mt-6">
-        {% if object %}
-            Update Task: {{ object.name }}
-        {% else %}
-            Create New Task
-        {% endif %}
-    </h2>
-
-    <div class="card">
-      <div class="card-body">
-
-        {% if object %}
-            <form method="post">
+  <section class="manage-task py-5">
+    <div class="container-fluid px-0">
+      <h2 class="animated-title text-center mb-4 mt-6" style="color: #e91e63;">
+        <span>
+          {% if object %}
+            ✏️ Update Task: {{ object.name }}
+          {% else %}
+             Create New Task
+          {% endif %}
+        </span>
+      </h2>
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+          <div class="card worker-card shadow-lg p-5 border-0 rounded-4 w-100">
+            <div class="card-body">
+              <h5 class="card-title text-center">
+                {% if object %}
+                  Modify Task Information
+                {% else %}
+                  Enter Task Details
+                {% endif %}
+              </h5>
+              <form method="post" class="needs-validation" novalidate>
                 {% csrf_token %}
-                {{ form.as_p }}
-
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-primary">Update Task</button>
-                    <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-secondary">Cancel</a>
+                <div class="form-group">
+                  {{ form|crispy }}
                 </div>
-            </form>
-        {% else %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-
                 <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-success">Create Task</button>
-                    <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-secondary">Cancel</a>
+                  <button type="submit" class="btn btn-gradient btn-lg shadow-lg px-4">
+                    {% if object %}
+                      Update Task
+                    {% else %}
+                      Create Task
+                    {% endif %}
+                  </button>
+                  <a href="{% url 'TaskTracker:task_list' %}" class="btn btn-outline-secondary btn-lg shadow-lg px-4">Cancel</a>
                 </div>
-            </form>
-        {% endif %}
-
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <style>
+    .container-fluid {
+       width: 100%;
+      padding: 0;
+    }
+
+      .worker-card {
+          border: none;
+          border-radius: 15px;
+          background-color: #ffffff;
+          padding: 25px;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease-in-out;
+      }
+
+      .worker-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .worker-card .card-title {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 16px;
+      }
+
+      .btn-gradient {
+          background: linear-gradient(135deg, #b5a776, #786e4e);
+          color: white;
+          text-transform: uppercase;
+          font-weight: bold;
+          padding: 12px 25px;
+          border-radius: 10px;
+          transition: all 0.3s ease-in-out;
+      }
+
+      .btn-gradient:hover {
+          background: linear-gradient(135deg, #e6bacd, #dde163);
+          box-shadow: 0 4px 12px rgba(146, 134, 165, 0.5);
+      }
+
+      .form-group {
+          margin-top: 20px;
+      }
+
+      @media (max-width: 767px) {
+          .worker-card {
+              margin-left: 10px;
+              margin-right: 10px;
+          }
+
+          .worker-card .btn {
+              padding: 10px;
+          }
+      }
+
+      .animated-title span {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #c6b884;
+          text-transform: uppercase;
+          display: inline-block;
+          animation: fadeIn 2s ease-in-out forwards, slideDown 1s ease-in-out forwards;
+      }
+
+      @keyframes fadeIn {
+          from {
+              opacity: 0;
+              transform: translateY(-20px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      @keyframes slideDown {
+          from {
+              opacity: 0;
+              transform: translateY(-40px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+  </style>
 {% endblock content %}
 
-<style>
-.task-form-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
+{% block javascripts %}
+  <script src="{{ ASSETS_ROOT }}/js/plugins/countup.min.js"></script>
+  <script src="{{ ASSETS_ROOT }}/js/plugins/choices.min.js"></script>
+  <script src="{{ ASSETS_ROOT }}/js/plugins/rellax.min.js"></script>
+  <script src="{{ ASSETS_ROOT }}/js/plugins/tilt.min.js"></script>
 
-.task-form-card .card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 16px;
-}
+  <script src="{{ ASSETS_ROOT }}/js/custom-scripts.js"></script>
 
-.task-form-card .card-text {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.task-form-card .btn {
-  font-size: 1rem;
-  text-transform: uppercase;
-  padding: 10px 20px;
-}
-
-.btn-warning {
-  background-color: #ffc107;
-  border-color: #ffc107;
-}
-
-.btn-warning:hover {
-  background-color: #e0a800;
-  border-color: #e0a800;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  border-color: #dc3545;
-}
-
-.btn-danger:hover {
-  background-color: #a71d2a;
-  border-color: #a71d2a;
-}
-
-.btn-success {
-  background-color: #28a745;
-  border-color: #28a745;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-  border-color: #1e7e34;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-  background-color: #565e64;
-  border-color: #565e64;
-}
-</style>
+  <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+          const form = document.querySelector('form');
+          form.addEventListener('submit', function (event) {
+              if (!confirm("Are you sure you want to submit?")) {
+                  event.preventDefault();
+              }
+          });
+      });
+  </script>
+{% endblock javascripts %}
