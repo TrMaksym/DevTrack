@@ -62,7 +62,7 @@ class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "TaskTracker/task_type_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:task_type_list", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task_type_list")
 
 
 class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -331,7 +331,7 @@ class PositionCreateView(generic.CreateView):
     model = Position
     fields = ['name']
     template_name = 'TaskTracker/position_form.html'
-    success_url = reverse_lazy('TaskTracker:position-list')
+    success_url = reverse_lazy('TaskTracker:position_list')
 
 class PositionListView(generic.ListView):
     model = Position
