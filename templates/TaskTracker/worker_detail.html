@@ -19,6 +19,18 @@
         <p><strong>Department:</strong> {{ worker.department }}</p>
     </div>
 
-    <a href="{% url 'TaskTracker:worker-list' %}" class="btn btn-primary mt-3">Back to Worker List</a>
+    <a href="{% url 'TaskTracker:worker-list' %}" class="my-custom-btn mt-3" style="display: inline-block !important;
+          padding: 10px 20px !important;
+          background-color: #da6e6e !important;
+          color: white !important;
+          text-decoration: none !important;
+          border: 2px solid #da6e6e !important;
+          border-radius: 5px !important;
+          font-size: 1.1rem !important;
+          font-weight: bold !important;
+          transition: all 0.3s ease-in-out !important;">Back to Worker List</a>
 </div>
 {% endblock %}
+
+
+
