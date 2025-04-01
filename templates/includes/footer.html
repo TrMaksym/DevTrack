@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-3 mb-4 ms-auto">
         <div>
-          <h6 class="text-gradient text-primary font-weight-bolder">DevTrack </h6>
+          <h6 class="custom-footer-title">DevTrack </h6>
         </div>
         <div>
           <h6 class="mt-3 mb-2 opacity-8">Social</h6>
@@ -22,7 +22,7 @@
       </div>
       <div class="col-md-2 col-sm-6 col-6 mb-4">
         <div>
-          <h6 class="text-gradient text-primary text-sm">Company</h6>
+          <h6 class="custom-footer-title" style="color: #d90505">Company</h6>
           <ul class="flex-column ms-n3 nav">
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about_us' %}">About Us</a>
@@ -38,7 +38,7 @@
       </div>
       <div class="col-md-2 col-sm-6 col-6 mb-4">
         <div>
-          <h6 class="text-gradient text-primary text-sm">Resources</h6>
+          <h6 class="custom-footer-title">Resources</h6>
           <ul class="flex-column ms-n3 nav">
             <li class="nav-item">
               <span class="nav-link">Blog</span>
@@ -54,7 +54,7 @@
       </div>
       <div class="col-md-2 col-sm-6 col-6 mb-4">
         <div>
-          <h6 class="text-gradient text-primary text-sm">Support</h6>
+          <h6 class="custom-footer-title">Support</h6>
           <ul class="flex-column ms-n3 nav">
             <li class="nav-item">
               <span class="nav-link">FAQ</span>
@@ -67,7 +67,7 @@
       </div>
       <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
         <div>
-          <h6 class="text-gradient text-primary text-sm">Legal</h6>
+          <h6 class="custom-footer-title">Legal</h6>
           <ul class="flex-column ms-n3 nav">
             <li class="nav-item">
               <span class="nav-link">Terms & Conditions</span>
@@ -88,6 +88,19 @@
     </div>
   </div>
 </footer>
+<style>
+  .custom-footer-title {
+    color: #cdc09f !important;
+    font-weight: bold;
+}
+
+.custom-footer-title:hover {
+    color: #3498db !important;
+    transition: color 0.3s ease-in-out;
+}
+
+</style>
+
 
 {% include 'includes/scripts.html' %}
 {% block javascripts %}{% endblock %}
