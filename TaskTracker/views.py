@@ -361,7 +361,7 @@ class PositionUpdateView(generic.UpdateView):
     context_object_name = "position"
 
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:position_detail", kwargs={'pk': self.object.pk})
+        return reverse_lazy("TaskTracker:position_list")
 
 
 class PositionDeleteView(generic.DeleteView):

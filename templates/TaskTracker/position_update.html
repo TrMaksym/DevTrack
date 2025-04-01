@@ -3,10 +3,12 @@
 {% block title %}Edit Position{% endblock %}
 
 {% block content %}
+  <div class="mt-7">
   <h1>Edit Position</h1>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save Changes</button>
   </form>
+  </div>
 {% endblock %}

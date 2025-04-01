@@ -3,42 +3,100 @@
 {% block title %}Positions{% endblock %}
 
 {% block content %}
-<div class="container mt-5 d-flex justify-content-center">
+  <div class="container mt-7 d-flex justify-content-center">
     <div class="card shadow-lg p-5 bg-white border-0 rounded-5 w-100" style="max-width: 800px;">
-        <h1 class="text-center text-gradient fw-bold mb-4">🚀 Available Positions</h1>
-        <ul class="list-group list-group-flush w-100">
-            {% for position in positions %}
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-3 bg-transparent position-item">
-                    <span class="fs-5 text-dark fw-medium">{{ position.name }}</span>
-                    <span class="badge bg-gradient bg-success px-3 py-2 rounded-pill shadow-sm">✅ Open</span>
-                </li>
-            {% empty %}
-                <li class="list-group-item text-muted text-center border-0 py-3 fs-5">⚡ No positions available at the moment.</li>
-            {% endfor %}
-        </ul>
+      <h1 class="text-center text-gradient fw-bold mb-4">🚀 Available Positions</h1>
+      <ul class="list-group list-group-flush w-100">
+        {% for position in positions %}
+          <li class="list-group-item d-flex justify-content-between align-items-center border-0 py-3 bg-transparent position-item">
+            <span class="fs-5 text-dark fw-medium position-link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#positionModal{{ position.id }}"
+                  style="cursor: pointer;">
+                    {{ position.name }}
+            </span>
+          </li>
+
+          <!-- Modal for position details -->
+          <div class="modal fade" id="positionModal{{ position.id }}" tabindex="-1"
+               aria-labelledby="positionModalLabel{{ position.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="positionModalLabel{{ position.id }}">{{ position.name }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Would you like to edit or delete this position?</p>
+                  <p><strong>Editing a position will allow you to update its details. Deleting it will permanently remove it.</strong></p>
+                </div>
+                <div class="modal-footer">
+                  <!-- Edit Button -->
+                  <a href="{% url 'TaskTracker:position_update' position.id %}" class="btn btn-warning">
+                    ✏️ Edit
+                  </a>
+                  <!-- Delete Form with Confirmation -->
+                  <form action="{% url 'TaskTracker:position_delete' position.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure you want to delete this position? This action cannot be undone.')">
+                      🗑 Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% empty %}
+          <li class="list-group-item text-muted text-center border-0 py-3 fs-5">⚡ No positions available at the moment.</li>
+        {% endfor %}
+      </ul>
     </div>
-</div>
+  </div>
 
-<style>
-.text-gradient {
-    background: linear-gradient(45deg, #ff7eb3, #ff758c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 2rem;
+  <style>
+      .text-gradient {
+          background: linear-gradient(45deg, #ff7eb3, #ff758c);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-size: 2rem;
+      }
+
+      .card {
+          background: linear-gradient(135deg, #ffffff, #f8f9fa);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .position-item {
+          transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+
+      .position-item:hover {
+          transform: scale(1.05);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+      .modal-content {
+  transition: transform 0.3s ease-out;
 }
 
-.card {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.modal.fade .modal-dialog {
+  transform: scale(0.9);
 }
 
-.position-item {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.modal.show .modal-dialog {
+  transform: scale(1);
 }
 
-.position-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
 }
-</style>
+
+.modal-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+  </style>
+
 {% endblock %}
