@@ -287,19 +287,13 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy("TaskTracker:task-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("TaskTracker:task_detail", kwargs={"pk": self.object.pk})
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     fields = "__all__"
     template_name = "TaskTracker/task_form.html"
-
-    def get_success_url(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["object"] = None
-        return context
-
 
     def get_success_url(self):
         return reverse_lazy("TaskTracker:task_detail", kwargs={"pk": self.object.pk})
@@ -311,8 +305,7 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "TaskTracker/task_confirm_delete.html"
 
 
-
-class TaskListView(ListView, LoginRequiredMixin):
+class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     template_name = "TaskTracker/task_list.html"
     context_object_name = "tasks"

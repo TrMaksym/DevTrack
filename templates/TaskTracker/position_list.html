@@ -17,7 +17,6 @@
             </span>
           </li>
 
-          <!-- Modal for position details -->
           <div class="modal fade" id="positionModal{{ position.id }}" tabindex="-1"
                aria-labelledby="positionModalLabel{{ position.id }}" aria-hidden="true">
             <div class="modal-dialog">
@@ -31,11 +30,9 @@
                   <p><strong>Editing a position will allow you to update its details. Deleting it will permanently remove it.</strong></p>
                 </div>
                 <div class="modal-footer">
-                  <!-- Edit Button -->
                   <a href="{% url 'TaskTracker:position_update' position.id %}" class="btn btn-warning">
                     ✏️ Edit
                   </a>
-                  <!-- Delete Form with Confirmation -->
                   <form action="{% url 'TaskTracker:position_delete' position.id %}" method="post" class="d-inline">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger"
