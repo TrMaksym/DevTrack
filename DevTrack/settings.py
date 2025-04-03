@@ -141,3 +141,4 @@ LOGIN_REDIRECT_URL ="/"
 ASSETS_ROOT = "/static/assets"
 
 LOGOUT_REDIRECT_URL = '/'
+AUTH_USER_MODEL = "TaskTracker.Worker"

@@ -9,7 +9,7 @@ from TaskTracker.models import Project
 class ProjectDetailViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.team = Team.objects.create(name="Test Team")
+        cls.team = Team.objects.create(name="T est Team")
         cls.user = User.objects.create_user(username="testuser", password="password")
         cls.project = Project.objects.create(
             name="Test Project",
