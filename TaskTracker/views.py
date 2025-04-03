@@ -144,7 +144,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Worker.objects.exclude(position__name="admin").select_related("position")
+        queryset = Worker.objects.exclude(position__name="admin").select_related("position").order_by("id")
         search_query = self.request.GET.get("search", "").strip()
 
         if search_query:
@@ -157,12 +157,14 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
                 filters |= Q(position__name__icontains=search_values[0])
 
             elif len(search_values) == 2:
-                filters |= Q(first_name__icontains=search_values[0], last_name__icontains=search_values[1])
-                filters |= Q(first_name__icontains=search_values[1], last_name__icontains=search_values[0])
+                filters |= Q(first_name__icontains=search_values[0], last_name__iexact=search_values[1])
+                filters |= Q(first_name__icontains=search_values[1], last_name__iexact=search_values[0])
 
             elif len(search_values) == 3:
-                filters |= Q(first_name__icontains=search_values[0], last_name__icontains=search_values[1], position__name__icontains=search_values[2])
-                filters |= Q(first_name__icontains=search_values[1], last_name__icontains=search_values[0], position__name__icontains=search_values[2])
+                filters |= Q(first_name__iexact=search_values[0], last_name__iexact=search_values[1],
+                             position__name__iexact=search_values[2])
+                filters |= Q(first_name__iexact=search_values[1], last_name__iexact=search_values[0],
+                             position__name__iexact=search_values[2])
 
             elif len(search_values) > 3:
                 return Worker.objects.none()
@@ -212,7 +214,7 @@ class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
-    success_url = reverse_lazy("TaskTracker:worker-list")
+    success_url = reverse_lazy("TaskTracker:worker_list")
     template_name = "TaskTracker/worker_confirm_delete.html"
 
 
