@@ -1,0 +1,5 @@
+Django==5.1.7
+python-decouple==3.8
+django-crispy-forms==2.3
+crispy-bootstrap4==2024.10
+flake8==7.1.0
