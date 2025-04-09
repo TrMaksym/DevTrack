@@ -18,7 +18,7 @@ from TaskTracker import context_processors
 from TaskTracker.context_processors import cfg_assets_root
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,12 +30,6 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", " ") != "False"
-
-
-ALLOWED_HOSTS = ["127.0.0.1"]
-
-INTERNAL_IPS = ["127.0.0.1"]
 
 
 # Application definition
@@ -48,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "TaskTracker",
+    "DevTrack",
     "crispy_forms",
     "crispy_bootstrap4",
-    "debug_toolbar"
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
