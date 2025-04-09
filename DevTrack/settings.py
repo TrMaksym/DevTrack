@@ -30,9 +30,12 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", " ") != "False"
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ["127.0.0.1"]
+
+INTERNAL_IPS = ["127.0.0.1"]
 
 
 # Application definition
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     "TaskTracker",
     "crispy_forms",
     "crispy_bootstrap4",
+    "debug_toolbar"
 ]
 
 MIDDLEWARE = [
@@ -57,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'DevTrack.urls'

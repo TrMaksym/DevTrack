@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -25,7 +26,8 @@ from TaskTracker.views import AboutUsView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("TaskTracker/", include("TaskTracker.urls", namespace="TaskTracker")),
+    path("", include("TaskTracker.urls", namespace="TaskTracker")),
     path("", views.index, name="index"),
     path('about-us/', AboutUsView.as_view(), name='about_us'),
+    path("__debug__/", include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
