@@ -6,3 +6,4 @@ settings.py
 TaskTracker/migrations/0001_initial.py
 TaskTracker/migrations/*.py
 .env
+dump.json
