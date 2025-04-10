@@ -39,9 +39,7 @@ class Worker(AbstractUser):
 
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ({self.position.name if self.position else "No Position"})"
-
-
+        return f"{self.first_name} {self.last_name} ({self.position.name if self.position else 'No Position'})"
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
