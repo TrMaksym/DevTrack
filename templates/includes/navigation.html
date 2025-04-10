@@ -22,7 +22,7 @@
             <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                   id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false" style="color: #da6e6e">
+                   id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false" style="color: #786e4e">
                   Catalog
                   <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                 </a>
@@ -81,7 +81,7 @@
               </li>
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                   id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false" style="color: #da6e6e">
+                   id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false" style="color: #786e4e">
                   Actions
                   <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                 </a>
@@ -140,7 +140,7 @@
               </li>
               <li class="nav-item dropdown dropdown-hover mx-2">
                 <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center"
-                   id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false" style="color: #da6e6e">
+                   id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false" style="color: #786e4e">
                   About Us
                   <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                 </a>
@@ -364,7 +364,7 @@
                 <a class="nav-link nav-link-icon me-2" href="#"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                   <i class="fa fa-sign-out me-1"></i>
-                  <span style="color: #f7765e;"><strong>Logout</strong></span>
+                  <span style="color: #786e4e;"><strong>Logout</strong></span>
                 </a>
                 <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
                   {% csrf_token %}
@@ -376,25 +376,18 @@
                   }
 
                   .navbar-nav .nav-link {
-                      color: #a15872;
+                      color: #786e4e;
                   }
 
                   .navbar-nav .nav-link:hover {
-                      color: #d95f72;
+                      color: #786e4e;
                   }
 
-                  .navbar .material-icons {
-                      color: #d81919;
-                  }
-
-                  .custom-dark-btn {
-                      background-color: #f1606f;
+                  .btn-custom {
+                      background-color: #786e4e;
+                      border-color: #786e4e;
                       color: white;
-                      border: none;
-                  }
-
-                  .custom-dark-btn:hover {
-                      background-color: #23272b;
+                      transition: all 0.3s ease;
                   }
 
               </style>
@@ -402,7 +395,9 @@
 
               <li class="nav-item my-auto ms-3 ms-lg-0">
                 <a href="{% url 'TaskTracker:index' %}"
-                   class="btn btn-sm custom-dark-btn btn-round mb-0 me-1 mt-2 mt-md-0">Home Page</a>
+                   class="btn btn-lg btn-custom btn-shadow text-white mb-0 me-1 mt-2 mt-md-0 px-4 py-2 rounded-pill">
+                  Home Page
+                </a>
               </li>
 
             </ul>
