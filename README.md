@@ -15,6 +15,7 @@ I built this project to make daily task tracking easier for my team. It’s stri
 
 ## Login
 username: admin.user
+
 password 1234qwert
 
 
